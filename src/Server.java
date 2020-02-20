@@ -44,9 +44,14 @@ public class Server {
     public void depart() {
         state = 0;
         totalInspectedPassengers++;
+        currentPassengerServicing = -1;
     }
 
     public int getTotalInspectedPassengers() {
         return totalInspectedPassengers;
+    }
+
+    public int getCurrentPassengerServicing() {
+        return currentPassengerServicing;
     }
 }

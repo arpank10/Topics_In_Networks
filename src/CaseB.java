@@ -3,21 +3,21 @@ import java.util.List;
 import java.util.Random;
 
 public class CaseB {
-    Double arrivalRate = 0.01, serviceRate = 0.08;
+    private Double arrivalRate = 0.04, serviceRate = 0.05;
 
-    Integer totalResponseTime, totalWaitingTime;
+    private Integer totalResponseTime, totalWaitingTime;
 
-    Integer totalPassengersInSystem, totalWaitingPassengers, totalServicedPassengers, currentTime;
+    private Integer totalPassengersInSystem, totalWaitingPassengers, totalServicedPassengers, currentTime;
 
-    Integer totalPassengers = 10000;
+    private Integer totalPassengers = 1000000;
 
-    Integer simulationTime = 10000;
+    private Integer simulationTime = 10000;
 
-    List<Integer> arrivalTime, leavingTime, serviceEnteringTime;
+    private List<Integer> arrivalTime, leavingTime, serviceEnteringTime;
 
-    Random random;
+    private Random random;
 
-    Server server1, server2, server3;
+    private List<Server> servers;
 
     public static void main(String[] args){
         new CaseB().simulate();
@@ -28,16 +28,17 @@ public class CaseB {
         leavingTime = new ArrayList<>(totalPassengers);
         serviceEnteringTime = new ArrayList<>(totalPassengers);
         random = new Random();
-        totalResponseTime = new Integer(0);
-        totalWaitingTime = new Integer(0);
-        totalWaitingPassengers = new Integer(0);
-        totalPassengersInSystem = new Integer(0);
-        totalServicedPassengers = new Integer(0);
-        currentTime = new Integer(0);
+        totalResponseTime = 0;
+        totalWaitingTime = 0;
+        totalWaitingPassengers = 0;
+        totalPassengersInSystem = 0;
+        totalServicedPassengers = 0;
+        currentTime = 0;
 
-        server1 = new Server(serviceRate);
-        server2 = new Server(serviceRate);
-        server3 = new Server(serviceRate);
+        servers = new ArrayList<>();
+        servers.add(new Server(serviceRate));
+        servers.add(new Server(serviceRate));
+        servers.add(new Server(serviceRate));
     }
 
     private Integer generateExponentiallyDistributedValue(Double rate){
@@ -49,22 +50,16 @@ public class CaseB {
         return value.intValue();
     }
 
-    private Integer getMax(Integer a, Integer b){
-        if(a>b) return a;
-        return b;
-    }
-
     private Server selectAppropriateServer(){
-        List<Integer> freeServers = new ArrayList<>();
-        if(server1.getState()  == 0) freeServers.add(1);
-        if(server2.getState()  == 0) freeServers.add(2);
-        if(server3.getState()  == 0) freeServers.add(3);
+        List<Server> freeServers = new ArrayList<>();
 
+        for(int i = 0;i<servers.size();i++){
+            if(servers.get(i).getState() == 0)
+                freeServers.add(servers.get(i));
+        }
+        if(freeServers.size() == 1) return freeServers.get(0);
         int randomIndex = random.nextInt(freeServers.size() - 1);
-        int randomServer = freeServers.get(randomIndex);
-        if(randomServer == 1) return server1;
-        if(randomServer == 2) return server2;
-        return server3;
+        return freeServers.get(randomIndex);
     }
 
     public void simulate(){
@@ -92,31 +87,39 @@ public class CaseB {
                 currentPassengersInSystem++;
             }
             //If any server is idle, passenger at the head of the queue is to be inspected
-            if(currentServicingPassengers< 3 && headQ < arrivalTime.size() && currentPassengersInSystem>0) {
-                int departTime = server1.enterService(currentTime, headQ);
+            if(currentServicingPassengers<servers.size() && headQ<tailQ && headQ < arrivalTime.size() && currentPassengersInSystem>0) {
+                Server allocatedServer = selectAppropriateServer();
+                int departTime = allocatedServer.enterService(currentTime, headQ);
                 leavingTime.add(departTime);
                 serviceEnteringTime.add(currentTime);
                 currentServicingPassengers++;
                 headQ++;
             }
 
-            //If current time is equal to the leavingTime of the currently serviced passenger, depart the passenger from the server
-            if(headQ-1<leavingTime.size() && leavingTime.get(headQ-1).equals(currentTime)){
-//                server.depart();
-                currentPassengersInSystem--;
-                currentServicingPassengers--;
-                totalResponseTime+= leavingTime.get(headQ-1) - arrivalTime.get(headQ-1);
-                totalWaitingTime+= serviceEnteringTime.get(headQ - 1) - arrivalTime.get(headQ - 1);
+            //Check each and every server if it can be relieved of service
+            for(int j = 0;j<servers.size();j++){
+                Server currentServer = servers.get(j);
+                if(currentServer.getState() == 1){
+                    int indexOfServicingPassenger = currentServer.getCurrentPassengerServicing();
+                    if(indexOfServicingPassenger == -1) continue;
+                    if(leavingTime.get(indexOfServicingPassenger).equals(currentTime)){
+                        currentServer.depart();
+                        currentPassengersInSystem--;
+                        currentServicingPassengers--;
+                        totalResponseTime+= leavingTime.get(indexOfServicingPassenger) - arrivalTime.get(indexOfServicingPassenger);
+                        totalWaitingTime+= serviceEnteringTime.get(indexOfServicingPassenger) - arrivalTime.get(indexOfServicingPassenger);
+                    }
+                }
             }
-
             totalPassengersInSystem+=currentPassengersInSystem;
             totalWaitingPassengers+=currentPassengersInSystem-currentServicingPassengers;
-            if(server1.getTotalInspectedPassengers() ==  totalPassengers)
+            if(currentServicingPassengers == 0 && headQ == arrivalTime.size())
                 break;
             currentTime++;
 
         }
-        totalServicedPassengers = server1.getTotalInspectedPassengers();
+        for(int j = 0;j<servers.size();j++)
+            totalServicedPassengers+= servers.get(j).getTotalInspectedPassengers();
         printResults();
 
     }
