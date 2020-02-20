@@ -23,7 +23,20 @@ public class CaseB {
         new CaseB().simulate();
     }
 
-    public CaseB() {
+    CaseB() {
+        initialize();
+    }
+
+
+    CaseB(Double arrivalRate, Double serviceRate, Integer totalPassengers, Integer simulationTime){
+        this.arrivalRate = arrivalRate;
+        this.serviceRate = serviceRate;
+        this.totalPassengers = totalPassengers;
+        this.simulationTime = simulationTime;
+        initialize();
+    }
+
+    private void initialize(){
         arrivalTime = new ArrayList<>(totalPassengers);
         leavingTime = new ArrayList<>(totalPassengers);
         serviceEnteringTime = new ArrayList<>(totalPassengers);
@@ -39,6 +52,7 @@ public class CaseB {
         servers.add(new Server(serviceRate));
         servers.add(new Server(serviceRate));
         servers.add(new Server(serviceRate));
+
     }
 
     private Integer generateExponentiallyDistributedValue(Double rate){
@@ -53,17 +67,17 @@ public class CaseB {
     private Server selectAppropriateServer(){
         List<Server> freeServers = new ArrayList<>();
 
-        for(int i = 0;i<servers.size();i++){
-            if(servers.get(i).getState() == 0)
-                freeServers.add(servers.get(i));
+        for (Server server : servers) {
+            if (server.getState() == 0)
+                freeServers.add(server);
         }
         if(freeServers.size() == 1) return freeServers.get(0);
         int randomIndex = random.nextInt(freeServers.size() - 1);
         return freeServers.get(randomIndex);
     }
 
-    public void simulate(){
-        Integer i = new Integer(0);
+    void simulate(){
+        Integer i = 0;
 
         //populate all the arrival times for the passengers
         while(i<totalPassengers) {
@@ -127,9 +141,6 @@ public class CaseB {
     private void printResults(){
         Integer totalServiced = totalPassengersInSystem - totalWaitingPassengers;
 
-        System.out.println(totalServicedPassengers);
-        System.out.println(currentTime);
-
         System.out.println("Total Response Time = " + totalResponseTime);
         System.out.println("Total Waiting Time = " + totalWaitingTime);
         System.out.println("Total Waiting Passengers = " + totalWaitingPassengers);
@@ -150,7 +161,7 @@ public class CaseB {
         System.out.println("Average Inspected Passengers = " + averageServicedPassenger);
     }
 
-    Double getAverage(Integer value, Integer total){
+    private Double getAverage(Integer value, Integer total){
         Double average = new Double(value);
         Double totalV = new Double(total);
         average = average/totalV;
