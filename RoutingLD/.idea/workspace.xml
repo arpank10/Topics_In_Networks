@@ -2,19 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c96ab6b5-b61a-42d2-b090-1402cea0e494" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/NSFNET_100.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/top14.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/FileIOUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ForwardingTableEntry.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/RoutingLD/Connection.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoutingLD/Connection.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/RoutingLD/ConnectionParser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoutingLD/ConnectionParser.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/RoutingLD/ConnectionSetup.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoutingLD/ConnectionSetup.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/RoutingLD/Route.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoutingLD/Route.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/RoutingLD/RoutingLD.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/RoutingLD/RoutingLD.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Connection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ConnectionParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ConnectionParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ConnectionSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ConnectionSetup.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Route.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Route.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/RoutingLD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RoutingLD.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TopologyParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TopologyParser.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -31,38 +29,30 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ConnectionSetup.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1275">
-              <caret line="89" column="22" selection-start-line="89" selection-start-column="22" selection-end-line="89" selection-end-column="22" />
+            <state relative-caret-position="35">
+              <caret line="136" column="37" selection-start-line="136" selection-start-column="37" selection-end-line="136" selection-end-column="37" />
               <folding>
                 <element signature="method#main#0;class#ConnectionSetup#0" />
+                <element signature="method#ConnectionSetup#0;class#ConnectionSetup#0" />
                 <element signature="method#initialize#0;class#ConnectionSetup#0" />
+                <element signature="e#1543#1726#1" />
+                <element signature="e#1640#1684#1" />
+                <element signature="e#1806#1926#1" />
+                <element signature="e#2185#2497#1" />
+                <element signature="e#2240#2340#1" />
+                <element signature="e#2387#2487#1" />
+                <element signature="e#4403#4451#0" />
+                <element signature="method#printConnectionDetails#0;class#ConnectionSetup#0" />
+                <element signature="e#5606#5672#1" />
+                <element signature="e#5708#5774#1" />
                 <element signature="method#printStats#0;class#ConnectionSetup#0" />
-                <element signature="method#printPath#0;class#ConnectionSetup#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ConnectionParser.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="680">
-              <caret line="40" selection-start-line="40" selection-end-line="40" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Connection.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="454">
-              <caret line="73" column="17" selection-start-line="73" selection-start-column="17" selection-end-line="73" selection-end-column="17" />
-              <folding>
-                <element signature="e#799#800#0" expanded="true" />
-                <element signature="e#828#829#0" expanded="true" />
+                <element signature="e#6496#6703#1" />
+                <element signature="e#7040#7041#0" expanded="true" />
+                <element signature="e#7079#7080#0" expanded="true" />
+                <element signature="e#7122#7123#0" expanded="true" />
+                <element signature="e#7164#7165#0" expanded="true" />
+                <element signature="e#7242#7243#0" expanded="true" />
+                <element signature="e#7280#7281#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -71,19 +61,47 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/RoutingLD.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="28" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
+            <state relative-caret-position="187">
+              <caret line="11" column="28" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/TopologyParser.java">
+        <entry file="file://$PROJECT_DIR$/src/FileIOUtil.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1003">
-              <caret line="59" column="53" selection-start-line="59" selection-start-column="53" selection-end-line="59" selection-end-column="53" />
+            <state relative-caret-position="318">
+              <caret line="76" column="61" selection-start-line="76" selection-start-column="61" selection-end-line="76" selection-end-column="61" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frwdTable.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-153" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ForwardingTableEntry.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="5" column="20" lean-forward="true" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#481#482#0" expanded="true" />
+                <element signature="e#512#513#0" expanded="true" />
+                <element signature="e#546#547#0" expanded="true" />
+                <element signature="e#579#580#0" expanded="true" />
+                <element signature="e#609#610#0" expanded="true" />
+                <element signature="e#638#639#0" expanded="true" />
+                <element signature="e#672#673#0" expanded="true" />
+                <element signature="e#705#706#0" expanded="true" />
+                <element signature="e#736#737#0" expanded="true" />
+                <element signature="e#766#767#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -104,12 +122,14 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Route.java" />
         <option value="$PROJECT_DIR$/top14.txt" />
-        <option value="$PROJECT_DIR$/src/ConnectionParser.java" />
         <option value="$PROJECT_DIR$/src/Connection.java" />
-        <option value="$PROJECT_DIR$/src/ConnectionSetup.java" />
         <option value="$PROJECT_DIR$/src/TopologyParser.java" />
+        <option value="$PROJECT_DIR$/src/ConnectionParser.java" />
+        <option value="$PROJECT_DIR$/src/Route.java" />
+        <option value="$PROJECT_DIR$/src/ForwardingTableEntry.java" />
+        <option value="$PROJECT_DIR$/src/FileIOUtil.java" />
+        <option value="$PROJECT_DIR$/src/ConnectionSetup.java" />
         <option value="$PROJECT_DIR$/src/RoutingLD.java" />
       </list>
     </option>
@@ -229,7 +249,7 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15771812" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15771812" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -238,14 +258,14 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3286119" />
-      <window_info anchor="bottom" x="0" y="23" width="1536" height="801" id="Run" maximized="true" order="2" type="WINDOWED" visible="true" weight="0.20679887" />
+      <window_info anchor="bottom" x="26" y="342" width="1484" height="140" id="Run" maximized="true" order="2" weight="0.9575071" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39943343" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.3286119" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.3286119" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.3286119" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -310,39 +330,6 @@
     <entry file="file://$PROJECT_DIR$/NSFNET_100.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Route.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
-          <caret line="128" column="10" selection-start-line="128" selection-start-column="10" selection-end-line="128" selection-end-column="10" />
-          <folding>
-            <element signature="method#Route#0;class#Route#0" />
-            <element signature="method#initShortestPaths#0;class#Route#0" />
-            <element signature="e#1279#1545#1" />
-            <element signature="e#1388#1497#1" />
-            <element signature="e#1580#1850#1" />
-            <element signature="e#1689#1798#1" />
-            <element signature="method#getMinimumNode#0;class#Route#0" />
-            <element signature="e#2054#2233#1" />
-            <element signature="e#2129#2223#1" />
-            <element signature="method#addShortestPath#0;class#Route#0" />
-            <element signature="method#findShortestPath#0;class#Route#0" />
-            <element signature="e#2926#3011#1" />
-            <element signature="e#3143#3783#1" />
-            <element signature="e#3338#3773#1" />
-            <element signature="e#3420#3759#1" />
-            <element signature="e#3587#3741#1" />
-            <element signature="method#removePath#0;class#Route#0" />
-            <element signature="e#4114#4321#1" />
-            <element signature="e#4211#4279#1" />
-            <element signature="e#4365#4546#1" />
-            <element signature="method#outputToRoutingFile#0;class#Route#0" />
-            <element signature="method#getPathDelay#0;class#Route#0" />
-            <element signature="method#getPathCost#0;class#Route#0" />
-            <element signature="method#printMatrix#0;class#Route#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/top14.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
@@ -370,41 +357,136 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/TopologyParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1003">
-          <caret line="59" column="53" selection-start-line="59" selection-start-column="53" selection-end-line="59" selection-end-column="53" />
+        <state relative-caret-position="1275">
+          <caret line="75" column="27" selection-start-line="75" selection-start-column="27" selection-end-line="75" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/paths.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ConnectionParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="28" column="23" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ForwardingTable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="30" lean-forward="true" selection-start-column="30" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ForwardingTableEntry.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="20" lean-forward="true" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
+          <folding>
+            <element signature="e#481#482#0" expanded="true" />
+            <element signature="e#512#513#0" expanded="true" />
+            <element signature="e#546#547#0" expanded="true" />
+            <element signature="e#579#580#0" expanded="true" />
+            <element signature="e#609#610#0" expanded="true" />
+            <element signature="e#638#639#0" expanded="true" />
+            <element signature="e#672#673#0" expanded="true" />
+            <element signature="e#705#706#0" expanded="true" />
+            <element signature="e#736#737#0" expanded="true" />
+            <element signature="e#766#767#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Route.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="108" column="78" selection-start-line="108" selection-start-column="78" selection-end-line="108" selection-end-column="78" />
+          <folding>
+            <element signature="method#main#0;class#Route#0" />
+            <element signature="method#Route#0;class#Route#0" />
+            <element signature="method#initShortestPaths#0;class#Route#0" />
+            <element signature="e#1279#1545#1" />
+            <element signature="e#1388#1497#1" />
+            <element signature="e#1580#1850#1" />
+            <element signature="e#1689#1798#1" />
+            <element signature="method#getMinimumNode#0;class#Route#0" />
+            <element signature="e#2054#2233#1" />
+            <element signature="e#2129#2223#1" />
+            <element signature="method#addShortestPath#0;class#Route#0" />
+            <element signature="method#findShortestPath#0;class#Route#0" />
+            <element signature="e#2926#3011#1" />
+            <element signature="e#3143#3783#1" />
+            <element signature="e#3338#3773#1" />
+            <element signature="e#3420#3759#1" />
+            <element signature="e#3587#3741#1" />
+            <element signature="method#removePath#0;class#Route#0" />
+            <element signature="e#4671#5026#1" />
+            <element signature="e#4745#5016#1" />
+            <element signature="method#printMatrix#0;class#Route#0" />
+            <element signature="e#5591#5592#0" expanded="true" />
+            <element signature="e#5625#5626#0" expanded="true" />
+            <element signature="e#5658#5659#0" expanded="true" />
+            <element signature="e#5687#5688#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/FileIOUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="318">
+          <caret line="76" column="61" selection-start-line="76" selection-start-column="61" selection-end-line="76" selection-end-column="61" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ConnectionSetup.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1275">
-          <caret line="89" column="22" selection-start-line="89" selection-start-column="22" selection-end-line="89" selection-end-column="22" />
+        <state relative-caret-position="35">
+          <caret line="136" column="37" selection-start-line="136" selection-start-column="37" selection-end-line="136" selection-end-column="37" />
           <folding>
             <element signature="method#main#0;class#ConnectionSetup#0" />
+            <element signature="method#ConnectionSetup#0;class#ConnectionSetup#0" />
             <element signature="method#initialize#0;class#ConnectionSetup#0" />
+            <element signature="e#1543#1726#1" />
+            <element signature="e#1640#1684#1" />
+            <element signature="e#1806#1926#1" />
+            <element signature="e#2185#2497#1" />
+            <element signature="e#2240#2340#1" />
+            <element signature="e#2387#2487#1" />
+            <element signature="e#4403#4451#0" />
+            <element signature="method#printConnectionDetails#0;class#ConnectionSetup#0" />
+            <element signature="e#5606#5672#1" />
+            <element signature="e#5708#5774#1" />
             <element signature="method#printStats#0;class#ConnectionSetup#0" />
-            <element signature="method#printPath#0;class#ConnectionSetup#0" />
+            <element signature="e#6496#6703#1" />
+            <element signature="e#7040#7041#0" expanded="true" />
+            <element signature="e#7079#7080#0" expanded="true" />
+            <element signature="e#7122#7123#0" expanded="true" />
+            <element signature="e#7164#7165#0" expanded="true" />
+            <element signature="e#7242#7243#0" expanded="true" />
+            <element signature="e#7280#7281#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ConnectionParser.java">
+    <entry file="file://$PROJECT_DIR$/frwdTable.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="40" selection-start-line="40" selection-end-line="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
+        <state relative-caret-position="-153" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/RoutingLD.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="28" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
+        <state relative-caret-position="187">
+          <caret line="11" column="28" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

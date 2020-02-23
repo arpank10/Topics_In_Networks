@@ -44,22 +44,8 @@ public class ConnectionParser {
             }
             lineCount++;
         }
-        printMatrix();
     }
 
-    private void printMatrix(){
-        for(int i=0;i<totalConnections;i++){
-            Connection connection = connections.get(i);
-            System.out.print(connection.getId() + " ");
-            System.out.print(connection.getSource() + " ");
-            System.out.print(connection.getDestination() + " ");
-            System.out.print(connection.getbMin() + " ");
-            System.out.print(connection.getbAvg() + " ");
-            System.out.print(connection.getbMax() + " ");
-            System.out.print(connection.getbEq());
-            System.out.println();
-        }
-    }
 
     public ArrayList<Connection> getConnections() {
         return connections;

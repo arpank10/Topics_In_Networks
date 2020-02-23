@@ -1,0 +1,65 @@
+Forwarding Table for Node 0
+Router's ID     ID of Incoming Port            VCID            ID of Outgoing Port            VCID           
+0               0                              1               2                              2              
+0               1                              1               2                              3              
+Forwarding Table for Node 1
+Router's ID     ID of Incoming Port            VCID            ID of Outgoing Port            VCID           
+1               6                              1               0                              1              
+1               6                              2               0                              2              
+1               6                              3               1                              2              
+1               6                              4               0                              4              
+1               6                              5               1                              3              
+Forwarding Table for Node 2
+Router's ID     ID of Incoming Port            VCID            ID of Outgoing Port            VCID           
+2               1                              1               4                              1              
+2               1                              5               0                              2              
+Forwarding Table for Node 3
+Router's ID     ID of Incoming Port            VCID            ID of Outgoing Port            VCID           
+3               0                              1               7                              1              
+3               0                              3               3                              1              
+3               7                              2               3                              2              
+Forwarding Table for Node 4
+Router's ID     ID of Incoming Port            VCID            ID of Outgoing Port            VCID           
+4               3                              2               5                              1              
+4               3                              3               4                              2              
+4               5                              3               3                              4              
+4               5                              5               3                              5              
+Forwarding Table for Node 5
+Router's ID     ID of Incoming Port            VCID            ID of Outgoing Port            VCID           
+5               2                              1               11                             1              
+5               2                              2               11                             2              
+5               4                              2               9                              1              
+Forwarding Table for Node 6
+Router's ID     ID of Incoming Port            VCID            ID of Outgoing Port            VCID           
+6               6                              3               4                              3              
+6               6                              4               4                              4              
+Forwarding Table for Node 7
+Router's ID     ID of Incoming Port            VCID            ID of Outgoing Port            VCID           
+7               8                              1               6                              1              
+7               6                              2               8                              2              
+7               6                              5               1                              3              
+7               6                              6               1                              5              
+Forwarding Table for Node 8
+Router's ID     ID of Incoming Port            VCID            ID of Outgoing Port            VCID           
+8               3                              1               12                             1              
+8               10                             1               3                              2              
+8               12                             2               10                             2              
+Forwarding Table for Node 9
+Router's ID     ID of Incoming Port            VCID            ID of Outgoing Port            VCID           
+9               7                              2               10                             1              
+9               9                              2               10                             2              
+9               10                             4               12                             1              
+Forwarding Table for Node 10
+Router's ID     ID of Incoming Port            VCID            ID of Outgoing Port            VCID           
+10              9                              3               5                              2              
+Forwarding Table for Node 11
+Router's ID     ID of Incoming Port            VCID            ID of Outgoing Port            VCID           
+11              9                              3               8                              4              
+11              8                              5               9                              4              
+Forwarding Table for Node 12
+Router's ID     ID of Incoming Port            VCID            ID of Outgoing Port            VCID           
+12              5                              2               11                             1              
+12              12                             1               5                              3              
+Forwarding Table for Node 13
+Router's ID     ID of Incoming Port            VCID            ID of Outgoing Port            VCID           
+13              8                              3               12                             2              

@@ -134,66 +134,6 @@ public class Route {
                 findShortestPath(source, destination, tempMatrix, 0);
             }
         }
-
-        outputToRoutingFile();
-    }
-
-    private void outputToRoutingFile() {
-        try{
-            FileWriter fileWriter = new FileWriter(routingFilePath);
-            PrintWriter printWriter = new PrintWriter(fileWriter);
-            for(int i = 0;i<nodes;i++){
-                printWriter.println("Routing Table for Node " + i);
-                printWriter.println(String.format("%-15s %-50s %-15s %-15s","Destination", "Path", "Path Delay","Path Cost"));
-                for(int j = 0;j<nodes;j++){
-                    if(i==j) continue;
-                    ArrayList<Integer> path = shortestPaths.get(i).get(j);
-                    if(path.isEmpty()) continue;
-                    StringBuilder p = new StringBuilder();
-                    for(int k = 0;k<path.size();k++){
-                        p.append(path.get(k));
-                        if(k!=path.size()-1)
-                            p.append(" ");
-                    }
-                    printWriter.println(String.format("%-15s %-50s %-15s %-15s",j, p.toString(), getPathDelay(path), getPathCost(path)));
-                    path = nextShortestPaths.get(i).get(j);
-                    if(path.isEmpty()) continue;
-                    p = new StringBuilder();
-                    for(int k = 0;k<path.size();k++){
-                        p.append(path.get(k));
-                        if(k!=path.size()-1)
-                            p.append(" ");
-                    }
-                    printWriter.println(String.format("%-15s %-50s %-15s %-15s",j, p.toString(), getPathDelay(path), getPathCost(path)));
-                }
-                printWriter.println();
-            }
-            printWriter.close();
-        } catch (IOException e){
-            System.out.println("IO Exception, please retry");
-        }
-    }
-
-    private int getPathDelay(ArrayList<Integer> path){
-        int delay = 0;
-        for(int i = 0;i<path.size() - 1;i++){
-            int node1 = path.get(i);
-            int node2 = path.get(i+1);
-            delay+=graphMatrix.get(node1).get(node2);
-        }
-        return delay;
-    }
-
-    private int getPathCost(ArrayList<Integer> path){
-
-        if(metric.equals("hop")) return path.size() - 1;
-        int cost = 0;
-        for(int i = 0;i<path.size() - 1;i++){
-            int node1 = path.get(i);
-            int node2 = path.get(i+1);
-            cost+= graphMatrix.get(node1).get(node2);
-        }
-        return cost;
     }
 
     private void printMatrix(){
@@ -212,5 +152,13 @@ public class Route {
 
     public ArrayList<ArrayList<ArrayList<Integer>>> getNextShortestPaths() {
         return nextShortestPaths;
+    }
+
+    public ArrayList<ArrayList<Integer>> getGraphMatrix() {
+        return graphMatrix;
+    }
+
+    public String getMetric() {
+        return metric;
     }
 }
