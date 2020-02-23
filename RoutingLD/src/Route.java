@@ -126,7 +126,7 @@ public class Route {
         return newGraph;
     }
 
-    private void setUpShortestPaths() {
+    public void setUpShortestPaths() {
         for(int source = 0; source< nodes; source++) {
             for(int destination = 0; destination< nodes; destination++) {
                 findShortestPath(source, destination, graphMatrix, 1);
@@ -204,5 +204,13 @@ public class Route {
             }
             System.out.println();
         }
+    }
+
+    public ArrayList<ArrayList<ArrayList<Integer>>> getShortestPaths() {
+        return shortestPaths;
+    }
+
+    public ArrayList<ArrayList<ArrayList<Integer>>> getNextShortestPaths() {
+        return nextShortestPaths;
     }
 }

@@ -5,7 +5,13 @@ public class Connection {
     private int bMin;
     private int bAvg;
     private int bMax;
+    private double bEq;
+    private int pathAlloted;
 
+    private double getMin(double a, double b){
+        if(a<b) return a;
+        return b;
+    }
     public Connection(int id, int source, int destination, int bMin, int bAvg, int bMax) {
         this.id = id;
         this.source = source;
@@ -13,6 +19,8 @@ public class Connection {
         this.bMin = bMin;
         this.bAvg = bAvg;
         this.bMax = bMax;
+        this.bEq = getMin((double)(bMax), (double)bAvg + ((double)bMax - (double)bMin)*0.25);
+        this.pathAlloted = -1;
     }
 
     public int getId() {
@@ -61,5 +69,17 @@ public class Connection {
 
     public void setbMax(int bMax) {
         this.bMax = bMax;
+    }
+
+    public double getbEq() {
+        return bEq;
+    }
+
+    public int getPathAlloted() {
+        return pathAlloted;
+    }
+
+    public void setPathAlloted(int pathAlloted) {
+        this.pathAlloted = pathAlloted;
     }
 }

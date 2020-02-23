@@ -37,8 +37,7 @@ public class ConnectionParser {
                 int destination = Integer.parseInt(lineElements[1]);
                 int bMin = Integer.parseInt(lineElements[2]);
                 int bAvg = Integer.parseInt(lineElements[3]);
-                int bMax = Integer.parseInt(lineElements[3]);
-
+                int bMax = Integer.parseInt(lineElements[4]);
                 Connection newConnection = new Connection(lineCount, source, destination, bMin, bAvg, bMax);
                 connections.add(newConnection);
 
@@ -56,7 +55,8 @@ public class ConnectionParser {
             System.out.print(connection.getDestination() + " ");
             System.out.print(connection.getbMin() + " ");
             System.out.print(connection.getbAvg() + " ");
-            System.out.print(connection.getbMax());
+            System.out.print(connection.getbMax() + " ");
+            System.out.print(connection.getbEq());
             System.out.println();
         }
     }

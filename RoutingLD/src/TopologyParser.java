@@ -11,7 +11,7 @@ public class TopologyParser {
 
     private ArrayList<ArrayList<Integer>> linkCosts;
 
-    private ArrayList<HashMap<Integer, Integer>> linkCapacity;
+    private ArrayList<HashMap<Integer, Double>> linkCapacity;
 
     public static void main(String[] args) throws FileNotFoundException{
         new TopologyParser(".\\Data\\top14.txt").parseFile();
@@ -29,7 +29,7 @@ public class TopologyParser {
         //Created the matrix denoting the graph
         for(int i=0;i<nodes;i++){
             ArrayList<Integer> temp = new ArrayList<>();
-            HashMap<Integer, Integer> tempDelay = new HashMap<>();
+            HashMap<Integer, Double> tempDelay = new HashMap<>();
 
             for(int j=0;j<nodes;j++){
                 temp.add(0);
@@ -57,7 +57,7 @@ public class TopologyParser {
                 int node1 = Integer.parseInt(lineElements[0]);
                 int node2 = Integer.parseInt(lineElements[1]);
                 int delay = Integer.parseInt(lineElements[2]);
-                int capacity = Integer.parseInt(lineElements[3]);
+                double capacity = Double.parseDouble(lineElements[3]);
 
                 //One direction
                 linkCosts.get(node1).set(node2, delay);
@@ -88,7 +88,7 @@ public class TopologyParser {
         return linkCosts;
     }
 
-    public ArrayList<HashMap<Integer, Integer>> getLinkCapacity() {
+    public ArrayList<HashMap<Integer, Double>> getLinkCapacity() {
         return linkCapacity;
     }
 }

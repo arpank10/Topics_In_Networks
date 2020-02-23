@@ -1,25 +1,27 @@
-import java.io.File;
+import java.io.FileNotFoundException;
 
 public class RoutingLD {
-    public static void main(String[] args){
+    public static void main(String[] args) throws FileNotFoundException {
         String topologyFile = args[0];
         String connectionsFile = args[1];
         String routingTableFile = args[2];
         String forwardingTableFile = args[3];
         String pathsFile = args[4];
-        String metric = args[5];
-        String approach = args[6];
+        String metric = "hop";
+        String approach = "0";
 
-        String filePath = new File("").getAbsolutePath();
+        TopologyParser topologyParser = new TopologyParser(topologyFile);
+        topologyParser.parseFile();
 
-        System.out.println(topologyFile);
-        System.out.println(connectionsFile);
-        System.out.println(routingTableFile);
-        System.out.println(forwardingTableFile);
-        System.out.println(pathsFile);
-        System.out.println(metric);
-        System.out.println(approach);
+        Route route = new Route(metric, topologyParser.getLinkCosts(), routingTableFile);
+        route.setUpShortestPaths();
 
-        System.out.println(filePath);
+        ConnectionParser connectionParser = new ConnectionParser(connectionsFile);
+        connectionParser.parseFile();
+
+        ConnectionSetup connectionSetup = new ConnectionSetup(approach, connectionParser.getConnections(),
+                route, topologyParser.getLinkCapacity());
+        connectionSetup.setupConnections();
+
     }
 }
