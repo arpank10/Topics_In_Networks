@@ -2,7 +2,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Scanner;
 
 public class TopologyParser {
@@ -12,8 +11,7 @@ public class TopologyParser {
 
     private ArrayList<ArrayList<Integer>> linkCosts;
 
-    private ArrayList<HashMap<Integer, Integer>> linkDelay;
-    private ArrayList<HashMap<Integer, Double>> linkCapacity;
+    private ArrayList<HashMap<Integer, Integer>> linkCapacity;
 
     public static void main(String[] args) throws FileNotFoundException{
         new TopologyParser(".\\Data\\top14.txt").parseFile();
@@ -26,23 +24,19 @@ public class TopologyParser {
 
     private void initialize(){
         linkCosts = new ArrayList<>();
-        linkDelay = new ArrayList<>();
         linkCapacity = new ArrayList<>();
-
 
         //Created the matrix denoting the graph
         for(int i=0;i<nodes;i++){
             ArrayList<Integer> temp = new ArrayList<>();
             HashMap<Integer, Integer> tempDelay = new HashMap<>();
-            HashMap<Integer, Double> tempCapacity = new HashMap<>();
 
             for(int j=0;j<nodes;j++){
                 temp.add(0);
             }
 
             linkCosts.add(temp);
-            linkCapacity.add(tempCapacity);
-            linkDelay.add(tempDelay);
+            linkCapacity.add(tempDelay);
         }
     }
 
@@ -62,17 +56,15 @@ public class TopologyParser {
             } else {
                 int node1 = Integer.parseInt(lineElements[0]);
                 int node2 = Integer.parseInt(lineElements[1]);
-                int distance = Integer.parseInt(lineElements[2]);
-                int delay = Integer.parseInt(lineElements[3]);
-                double capacity = Double.parseDouble(lineElements[4]);
+                int delay = Integer.parseInt(lineElements[2]);
+                int capacity = Integer.parseInt(lineElements[3]);
 
                 //One direction
-                linkCosts.get(node1).set(node2, distance);
-                linkDelay.get(node1).put(node2, delay);
+                linkCosts.get(node1).set(node2, delay);
                 linkCapacity.get(node1).put(node2, capacity);
+
                 //Other direction
-                linkCosts.get(node2).set(node1, distance);
-                linkDelay.get(node2).put(node1, delay);
+                linkCosts.get(node2).set(node1, delay);
                 linkCapacity.get(node2).put(node1, capacity);
             }
             lineCount++;
@@ -96,11 +88,7 @@ public class TopologyParser {
         return linkCosts;
     }
 
-    public ArrayList<HashMap<Integer, Double>> getLinkCapacity() {
+    public ArrayList<HashMap<Integer, Integer>> getLinkCapacity() {
         return linkCapacity;
-    }
-
-    public ArrayList<HashMap<Integer, Integer>> getLinkDelay() {
-        return linkDelay;
     }
 }

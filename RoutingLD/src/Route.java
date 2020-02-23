@@ -15,20 +15,18 @@ public class Route {
 
     private ArrayList<ArrayList<ArrayList<Integer>>> shortestPaths;
     private ArrayList<ArrayList<ArrayList<Integer>>> nextShortestPaths;
-    private ArrayList<HashMap<Integer, Integer>> linkDelays;
 
     public static void main(String[] args) throws FileNotFoundException {
         TopologyParser topologyParser = new TopologyParser(".\\Data\\top14.txt");
         topologyParser.parseFile();
 
-        new Route("distance", topologyParser.getLinkCosts(), topologyParser.getLinkDelay(), ".\\Data\\routingTables.txt").setUpShortestPaths();
+        new Route("distance", topologyParser.getLinkCosts(), ".\\Data\\routingTables.txt").setUpShortestPaths();
     }
 
-    Route(String metric, ArrayList<ArrayList<Integer>> matrix, ArrayList<HashMap<Integer, Integer>> linkDelays, String routingFilePath){
+    Route(String metric, ArrayList<ArrayList<Integer>> matrix, String routingFilePath){
         this.graphMatrix = matrix;
         this.metric = metric;
         this.nodes = matrix.size();
-        this.linkDelays = linkDelays;
         this.routingFilePath = routingFilePath;
 
         initShortestPaths();
@@ -181,8 +179,7 @@ public class Route {
         for(int i = 0;i<path.size() - 1;i++){
             int node1 = path.get(i);
             int node2 = path.get(i+1);
-            if(linkDelays.get(node1).containsKey(node2))
-                delay+=linkDelays.get(node1).get(node2);
+            delay+=graphMatrix.get(node1).get(node2);
         }
         return delay;
     }
