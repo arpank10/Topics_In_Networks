@@ -18,10 +18,13 @@ public class Simulator {
             System.out.println("Enter maximum simultion time in hours");
             Integer simulationTime = scanner.nextInt();
             if (simulationTime < 0) throwErrorMessage();
+
+            Util util = new Util();
+
             switch (c){
-                case 1: new CaseA(lambda, mu, maxPassengers, simulationTime).simulate();
+                case 1: new CaseA(lambda, mu, maxPassengers, simulationTime, util).simulate();
                         break;
-                case 2: new CaseB(lambda, mu, maxPassengers, simulationTime).simulate();
+                case 2: new CaseB(lambda, mu, maxPassengers, simulationTime, util).simulate();
                         break;
 /*
                 case 2: new CaseB(lambda, mu, maxPassengers, simulationTime).simulate();

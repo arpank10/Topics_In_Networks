@@ -19,6 +19,8 @@ public class CaseA {
 
     private Server server;
 
+    private Util util;
+
     public static void main(String[] args){
         new CaseA().simulate();
     }
@@ -27,11 +29,12 @@ public class CaseA {
         initialize();
     }
 
-    CaseA(Double arrivalRate, Double serviceRate, Integer totalPassengers, Integer simulationTime){
+    CaseA(Double arrivalRate, Double serviceRate, Integer totalPassengers, Integer simulationTime, Util util){
         this.arrivalRate = arrivalRate;
         this.serviceRate = serviceRate;
         this.totalPassengers = totalPassengers;
         this.simulationTime = simulationTime;
+        this.util = util;
         initialize();
     }
 
@@ -47,16 +50,7 @@ public class CaseA {
         totalServicedPassengers = 0;
         currentTime = 0;
 
-        server = new Server(serviceRate);
-    }
-
-    private Integer generateExponentiallyDistributedValue(Double rate){
-        Double value = 0.0;
-        Double rand = 0.0;
-        while(rand == 0.0)
-            rand = random.nextDouble();
-        value = -(Math.log(1 - rand))/rate;
-        return value.intValue();
+        server = new Server(serviceRate, util);
     }
 
     void simulate(){
@@ -66,7 +60,7 @@ public class CaseA {
         while(i<totalPassengers) {
             if (i.equals(0)) arrivalTime.add(0);
             else {
-                Integer interArrivalTime = generateExponentiallyDistributedValue(arrivalRate);
+                Integer interArrivalTime = util.generateExponentiallyDistributedValue(arrivalRate);
                 arrivalTime.add(arrivalTime.get(i - 1) + interArrivalTime);
             }
             i++;
@@ -109,38 +103,9 @@ public class CaseA {
 
         }
         totalServicedPassengers = server.getTotalInspectedPassengers();
-        printResults();
+        util.printResults(totalServicedPassengers, totalResponseTime, totalWaitingTime,
+                totalWaitingPassengers, totalPassengersInSystem, currentTime);
 
-    }
-
-    private void printResults(){
-        Integer totalServiced = totalPassengersInSystem - totalWaitingPassengers;
-
-
-        System.out.println("Total Response Time = " + totalResponseTime);
-        System.out.println("Total Waiting Time = " + totalWaitingTime);
-        System.out.println("Total Waiting Passengers = " + totalWaitingPassengers);
-        System.out.println("Total Passengers in System= " + totalPassengersInSystem);
-        System.out.println("Total Inspected Passengers = " + totalServiced);
-
-        Double averageWaitingTime = getAverage(totalWaitingTime, totalServicedPassengers);
-        Double averageResponseTime = getAverage(totalResponseTime, totalServicedPassengers);
-        Double averageWaitingPassengers = getAverage(totalWaitingPassengers, currentTime);
-        Double averageTotalPassengers = getAverage(totalPassengersInSystem, currentTime);
-        Double averageServicedPassenger = getAverage(totalServiced, currentTime);
-
-        System.out.println("Average Response Time = " + averageResponseTime);
-        System.out.println("Average Waiting Time = " + averageWaitingTime);
-        System.out.println("Average Waiting Passengers = " + averageWaitingPassengers);
-        System.out.println("Average Passengers in System = " + averageTotalPassengers);
-        System.out.println("Average Inspected Passengers = " + averageServicedPassenger);
-    }
-
-    private Double getAverage(Integer value, Integer total){
-        Double average = new Double(value);
-        Double totalV = new Double(total);
-        average = average/totalV;
-        return average;
     }
 
 }
