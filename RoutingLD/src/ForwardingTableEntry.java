@@ -1,3 +1,5 @@
+//POJO for a forwarding table entry
+//Contains information to be displayed in an entry of a forwarding table of a node
 public class ForwardingTableEntry {
     private int routerId;
     private int incomingId;

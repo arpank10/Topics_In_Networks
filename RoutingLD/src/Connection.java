@@ -1,3 +1,5 @@
+//POJO for connection
+//Contains all the information needed for a connection
 public class Connection {
     private int id;
     private int source;
@@ -12,13 +14,14 @@ public class Connection {
         if(a<b) return a;
         return b;
     }
-    public Connection(int id, int source, int destination, int bMin, int bAvg, int bMax) {
+    Connection(int id, int source, int destination, int bMin, int bAvg, int bMax) {
         this.id = id;
         this.source = source;
         this.destination = destination;
         this.bMin = bMin;
         this.bAvg = bAvg;
         this.bMax = bMax;
+        //Calculate and store bEquiv for the connection
         this.bEq = getMin((double)(bMax), (double)bAvg + ((double)bMax - (double)bMin)*0.25);
         this.pathAlloted = -1;
     }

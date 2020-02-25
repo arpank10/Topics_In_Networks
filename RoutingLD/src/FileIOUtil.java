@@ -16,6 +16,7 @@ public class FileIOUtil {
 
     private int nodes;
 
+    //Initialize all the data structures to output
     FileIOUtil(ArrayList<ArrayList<ArrayList<Integer>>> shortestPaths,
                ArrayList<ArrayList<ArrayList<Integer>>> nextShortestPaths,
                ArrayList<ArrayList<Integer>> graphMatrix,
@@ -33,6 +34,7 @@ public class FileIOUtil {
         nodes = graphMatrix.size();
     }
 
+    //Output routing table with format as given in question for each node
     void outputRouteFile(String filePath) throws IOException{
         FileWriter fileWriter = new FileWriter(filePath);
         PrintWriter printWriter = new PrintWriter(fileWriter);
@@ -65,6 +67,7 @@ public class FileIOUtil {
         printWriter.close();
     }
 
+    //Output forwarding table node wise for each node as populated in Connection Setup
     void outputForwardingTable(String filePath) throws IOException{
         FileWriter fileWriter = new FileWriter(filePath);
         PrintWriter printWriter = new PrintWriter(fileWriter);
@@ -77,10 +80,12 @@ public class FileIOUtil {
                 printWriter.println(String.format("%-15s %-30s %-15s %-30s %-15s",
                         f.getRouterId(), f.getIncomingId(), f.getInVCID(), f.getOutgoingId(), f.getOutVCID()));
             }
+            printWriter.println();
         }
         printWriter.close();
     }
 
+    //Output number of admitted connections and total connections
     void outputPathsFile(String filePath) throws IOException {
         FileWriter fileWriter = new FileWriter(filePath);
         PrintWriter printWriter = new PrintWriter(fileWriter);
@@ -94,8 +99,7 @@ public class FileIOUtil {
 
     }
 
-
-
+    //Returns delay for a path
     private int getPathDelay(ArrayList<Integer> path){
         int delay = 0;
         for(int i = 0;i<path.size() - 1;i++){
@@ -106,6 +110,7 @@ public class FileIOUtil {
         return delay;
     }
 
+    //Returns cost for a path based on the metric
     private int getPathCost(ArrayList<Integer> path){
 
         if(metric.equals("hop")) return path.size() - 1;

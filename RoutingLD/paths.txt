@@ -1,1 +1,1 @@
-Total Connections = 100 Admitted Connections = 37
+Total Connections = 100 Admitted Connections = 39

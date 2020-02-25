@@ -26,10 +26,8 @@ public class Simulator {
                         break;
                 case 2: new CaseB(lambda, mu, maxPassengers, simulationTime, util).simulate();
                         break;
-/*
-                case 2: new CaseB(lambda, mu, maxPassengers, simulationTime).simulate();
+                case 3: new CaseC(lambda, mu, maxPassengers, simulationTime, util).simulate();
                         break;
-*/
             }
         } catch (InputMismatchException e){
             throwErrorMessage();
