@@ -1,10 +1,9 @@
-import java.util.Random;
-
+//Class for a server
 public class Server {
     //0 IDLE, 1 BUSY
     private int state;
+    //Index of passenger in arrivalTime array
     private int currentPassengerServicing = -1;
-    int currentTime = 0;
     private Double serviceRate = 0.08;
     private int totalInspectedPassengers;
     private int totalWaitingTime;
@@ -13,7 +12,7 @@ public class Server {
 
     private Util util;
 
-    public Server(Double serviceRate, Util util){
+    Server(Double serviceRate, Util util){
         this.serviceRate = serviceRate;
         this.totalInspectedPassengers = 0;
         this.totalWaitingTime = 0;
@@ -22,8 +21,9 @@ public class Server {
         this.util = util;
     }
 
-
-    public int enterService(int currentTime, int currentPassengerIndex){
+    //A passenger is entering for inspection
+    int enterService(int currentTime, int currentPassengerIndex){
+        //Generate and return service time
         int serviceTime = util.generateExponentiallyDistributedValue(serviceRate);
         state = 1;
         currentPassengerServicing = currentPassengerIndex;
@@ -31,21 +31,23 @@ public class Server {
         return serviceTime + currentTime;
     }
 
-    public int getState() {
-        return state;
-    }
-
-    public void depart() {
+    //A passenger's inspection is completed
+    void depart() {
         state = 0;
         totalInspectedPassengers++;
         currentPassengerServicing = -1;
     }
 
-    public int getTotalInspectedPassengers() {
+    //Getter functions
+    int getState() {
+        return state;
+    }
+
+    int getTotalInspectedPassengers() {
         return totalInspectedPassengers;
     }
 
-    public int getCurrentPassengerServicing() {
+    int getCurrentPassengerServicing() {
         return currentPassengerServicing;
     }
 }

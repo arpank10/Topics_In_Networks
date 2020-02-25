@@ -53,6 +53,12 @@ public class CaseB {
         totalServicedPassengers = 0;
         currentTime = 0;
 
+        //Normalize rates
+        double normalizeDenom = util.normalizeValue(arrivalRate,serviceRate);
+        this.arrivalRate = this.arrivalRate/normalizeDenom;
+        this.serviceRate = this.serviceRate/normalizeDenom;
+
+
         servers = new ArrayList<>();
         servers.add(new Server(serviceRate, util));
         servers.add(new Server(serviceRate, util));
@@ -73,6 +79,11 @@ public class CaseB {
     }
 
     void simulate(){
+        if(arrivalRate>=3*serviceRate) {
+            System.out.println("Unstable System");
+            System.exit(0);
+        }
+
         Integer i = 0;
 
         //populate all the arrival times for the passengers

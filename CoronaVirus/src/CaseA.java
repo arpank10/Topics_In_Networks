@@ -3,19 +3,19 @@ import java.util.List;
 import java.util.Random;
 
 public class CaseA {
+    //Default values
     private Double arrivalRate = 0.01, serviceRate = 0.08;
 
     private Integer totalResponseTime, totalWaitingTime;
 
     private Integer totalPassengersInSystem, totalWaitingPassengers, totalServicedPassengers, currentTime;
 
-    private Integer totalPassengers = 10000;
+    //Default values
+    private Integer totalPassengers = 100000;
 
     private Integer simulationTime = 10000;
 
     private List<Integer> arrivalTime, leavingTime, serviceEnteringTime;
-
-    private Random random;
 
     private Server server;
 
@@ -42,19 +42,27 @@ public class CaseA {
         arrivalTime = new ArrayList<>(totalPassengers);
         leavingTime = new ArrayList<>(totalPassengers);
         serviceEnteringTime = new ArrayList<>(totalPassengers);
-        random = new Random();
         totalResponseTime = 0;
         totalWaitingTime = 0;
         totalWaitingPassengers = 0;
         totalPassengersInSystem = 0;
         totalServicedPassengers = 0;
         currentTime = 0;
-
+        //Normalize rates
+        double normalizeDenom = util.normalizeValue(arrivalRate,serviceRate);
+        this.arrivalRate = this.arrivalRate/normalizeDenom;
+        this.serviceRate = this.serviceRate/normalizeDenom;
+        //Create a single server
         server = new Server(serviceRate, util);
     }
 
     void simulate(){
-        Integer i = new Integer(0);
+        //Exit if unstable
+        if(arrivalRate>=serviceRate) {
+            System.out.println("Unstable System");
+            System.exit(0);
+        }
+        Integer i = 0;
 
         //populate all the arrival times for the passengers
         while(i<totalPassengers) {
