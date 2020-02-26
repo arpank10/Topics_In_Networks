@@ -1,6 +1,7 @@
 import java.util.*;
-//In this we have simulated 3 M/M/1/10 queues with another M/M/1 system for the other queue when all the 3 queues are full
-public class CaseC {
+
+//In this we have simulated 1 M/M/1/10 queue where lambda = initial_lamdba*0.33, and packets are dropped if queue is full
+public class CaseCSimple {
     private static final int QUEUE_SIZE = 10;
 
     private Double normalizedDom = 1.0;
@@ -25,19 +26,17 @@ public class CaseC {
 
     private List<Queue<Integer>>  queues;
 
-    private Queue<Integer> normalQueue;
-
     public static void main(String[] args){
-        new CaseC().simulate();
+        new CaseCSimple().simulate();
     }
 
-    CaseC() {
+    CaseCSimple() {
         this.util = new Util();
         initialize();
     }
 
 
-    CaseC(Double arrivalRate, Double serviceRate, Integer totalPassengers, Integer simulationTime, Util util){
+    CaseCSimple(Double arrivalRate, Double serviceRate, Integer totalPassengers, Integer simulationTime, Util util){
         this.arrivalRate = arrivalRate;
         this.serviceRate = serviceRate;
         this.totalPassengers = totalPassengers;
@@ -66,16 +65,10 @@ public class CaseC {
 
         servers = new ArrayList<>();
         servers.add(new Server(serviceRate, util));
-        servers.add(new Server(serviceRate, util));
-        servers.add(new Server(serviceRate, util));
-        servers.add(new Server(serviceRate, util));
 
         queues = new ArrayList<>();
         queues.add(new LinkedList<>());
-        queues.add(new LinkedList<>());
-        queues.add(new LinkedList<>());
 
-        normalQueue  = new LinkedList<>();
 
         for(int i = 0;i<totalPassengers;i++){
             leavingTime.add(0);
@@ -83,6 +76,7 @@ public class CaseC {
         }
     }
 
+    //Select appropriate queue for the passenger, if all of three queues are full drop the passenger
     private Queue<Integer> selectAppropriateQueue(){
         List<Queue<Integer>> freeQueues = new ArrayList<>();
 
@@ -90,18 +84,13 @@ public class CaseC {
             if(queue.size()<QUEUE_SIZE)
                 freeQueues.add(queue);
         }
-        if(freeQueues.size() == 0) return normalQueue;
+        if(freeQueues.size() == 0) return null;
         if(freeQueues.size() == 1) return freeQueues.get(0);
         int randomIndex = random.nextInt(freeQueues.size() - 1);
         return freeQueues.get(randomIndex);
     }
 
     void simulate(){
-        if(arrivalRate>=3*serviceRate) {
-            System.out.println("Unstable System");
-            System.exit(0);
-        }
-
         Integer i = 0;
 
         //populate all the arrival times for the passengers
@@ -126,23 +115,13 @@ public class CaseC {
                 currentPassengersInSystem++;
                 //Select a queue for the passenger
                 Queue<Integer> allotedQueue = selectAppropriateQueue();
-                allotedQueue.add(tailQ);
+                if(allotedQueue!=null){
+                    allotedQueue.add(tailQ);
+                }
+                //Drop
                 tailQ++;
             }
 
-            //Check if the normal queue can be serviced at this point
-            if(currentServicingPassengers<4 && normalQueue.size()>0){
-                Server server = servers.get(3);
-                if(server.getState() == 1) continue;
-
-                int currentHead = normalQueue.peek();
-                int departTime = server.enterService(currentTime, currentHead);
-                leavingTime.set(currentHead, departTime);
-                serviceEnteringTime.set(currentHead, currentTime);
-
-                currentServicingPassengers++;
-                normalQueue.poll();
-            }
 
             //Check if head of each queue can be serviced at this point of time
             for(int k = 0;k<queues.size();k++){
@@ -160,17 +139,16 @@ public class CaseC {
             }
 
             //Check each and every server if it can be relieved of service
-            for(int j = 0;j<servers.size();j++){
-                Server currentServer = servers.get(j);
-                if(currentServer.getState() == 1){
+            for (Server currentServer : servers) {
+                if (currentServer.getState() == 1) {
                     int indexOfServicingPassenger = currentServer.getCurrentPassengerServicing();
-                    if(indexOfServicingPassenger == -1) continue;
-                    if(leavingTime.get(indexOfServicingPassenger).equals(currentTime)){
+                    if (indexOfServicingPassenger == -1) continue;
+                    if (leavingTime.get(indexOfServicingPassenger).equals(currentTime)) {
                         currentServer.depart();
                         currentPassengersInSystem--;
                         currentServicingPassengers--;
-                        totalResponseTime+= leavingTime.get(indexOfServicingPassenger) - arrivalTime.get(indexOfServicingPassenger);
-                        totalWaitingTime+= serviceEnteringTime.get(indexOfServicingPassenger) - arrivalTime.get(indexOfServicingPassenger);
+                        totalResponseTime += leavingTime.get(indexOfServicingPassenger) - arrivalTime.get(indexOfServicingPassenger);
+                        totalWaitingTime += serviceEnteringTime.get(indexOfServicingPassenger) - arrivalTime.get(indexOfServicingPassenger);
                     }
                 }
             }
@@ -181,8 +159,7 @@ public class CaseC {
             currentTime++;
 
         }
-        for(int j = 0;j<servers.size();j++)
-            totalServicedPassengers+= servers.get(j).getTotalInspectedPassengers();
+        for (Server server : servers) totalServicedPassengers += server.getTotalInspectedPassengers();
 
         util.printResults(totalServicedPassengers, totalResponseTime, totalWaitingTime,
                 totalWaitingPassengers, totalPassengersInSystem, currentTime, normalizedDom);

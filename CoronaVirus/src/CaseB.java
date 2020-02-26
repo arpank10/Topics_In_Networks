@@ -6,6 +6,8 @@ import java.util.Random;
 public class CaseB {
     private Double arrivalRate = 0.04, serviceRate = 0.05;
 
+    private Double normalizedDom = 1.0;
+
     private Integer totalResponseTime, totalWaitingTime;
 
     private Integer totalPassengersInSystem, totalWaitingPassengers, totalServicedPassengers, currentTime;
@@ -54,9 +56,9 @@ public class CaseB {
         currentTime = 0;
 
         //Normalize rates
-        double normalizeDenom = util.normalizeValue(arrivalRate,serviceRate);
-        this.arrivalRate = this.arrivalRate/normalizeDenom;
-        this.serviceRate = this.serviceRate/normalizeDenom;
+        normalizedDom = util.normalizeValue(arrivalRate,serviceRate);
+        this.arrivalRate = this.arrivalRate/normalizedDom;
+        this.serviceRate = this.serviceRate/normalizedDom;
 
 
         servers = new ArrayList<>();
@@ -143,6 +145,6 @@ public class CaseB {
             totalServicedPassengers+= servers.get(j).getTotalInspectedPassengers();
 
         util.printResults(totalServicedPassengers, totalResponseTime, totalWaitingTime,
-                totalWaitingPassengers, totalPassengersInSystem, currentTime);
+                totalWaitingPassengers, totalPassengersInSystem, currentTime, normalizedDom);
     }
 }

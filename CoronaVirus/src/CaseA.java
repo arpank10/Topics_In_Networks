@@ -6,6 +6,7 @@ public class CaseA {
     //Default values
     private Double arrivalRate = 0.01, serviceRate = 0.08;
 
+    private Double normalizedDom = 1.0;
     private Integer totalResponseTime, totalWaitingTime;
 
     private Integer totalPassengersInSystem, totalWaitingPassengers, totalServicedPassengers, currentTime;
@@ -49,9 +50,9 @@ public class CaseA {
         totalServicedPassengers = 0;
         currentTime = 0;
         //Normalize rates
-        double normalizeDenom = util.normalizeValue(arrivalRate,serviceRate);
-        this.arrivalRate = this.arrivalRate/normalizeDenom;
-        this.serviceRate = this.serviceRate/normalizeDenom;
+        normalizedDom = util.normalizeValue(arrivalRate,serviceRate);
+        this.arrivalRate = this.arrivalRate/normalizedDom;
+        this.serviceRate = this.serviceRate/normalizedDom;
         //Create a single server
         server = new Server(serviceRate, util);
     }
@@ -112,7 +113,7 @@ public class CaseA {
         }
         totalServicedPassengers = server.getTotalInspectedPassengers();
         util.printResults(totalServicedPassengers, totalResponseTime, totalWaitingTime,
-                totalWaitingPassengers, totalPassengersInSystem, currentTime);
+                totalWaitingPassengers, totalPassengersInSystem, currentTime, normalizedDom);
 
     }
 

@@ -7,12 +7,14 @@ public class Simulator {
         Scanner scanner = new Scanner(System.in);
         try {
             //Take input from the terminal
+            //Values of lambda and mu are normalized to make them less than 1, in the end the appropriate values
+            //is multiplied with the result. This is to ensure that we do not generate absurd values for interarrival and service times
             System.out.println("Enter 1 for Case A, 2 for Case B, 3 for Case C");
             int c = scanner.nextInt();
             if (c < 1 || c > 3) throwErrorMessage();
-            System.out.println("Enter arrivalRate(lambda) in decimal");
+            System.out.println("Enter arrivalRate(lambda) in decimal in packets per second");
             Double lambda = scanner.nextDouble();
-            System.out.println("Enter serviceRate(mu) in decimal");
+            System.out.println("Enter serviceRate(mu) in decimal in packets per second");
             Double mu = scanner.nextDouble();
             System.out.println("Enter maximum number of passengers to simulate on:");
             Integer maxPassengers = scanner.nextInt();
@@ -29,7 +31,7 @@ public class Simulator {
                         break;
                 case 2: new CaseB(lambda, mu, maxPassengers, simulationTime, util).simulate();
                         break;
-                case 3: new CaseC(lambda, mu, maxPassengers, simulationTime, util).simulate();
+                case 3: new CaseCSimple(lambda*0.33, mu, maxPassengers, simulationTime, util).simulate();
                         break;
             }
         } catch (InputMismatchException e){

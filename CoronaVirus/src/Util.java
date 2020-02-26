@@ -9,7 +9,7 @@ public class Util {
 
     //Print the corresponding results
     void printResults(int totalServicedPassengers, int totalResponseTime, int totalWaitingTime, int totalWaitingPassengers,
-                              int totalPassengersInSystem, int currentTime){
+                              int totalPassengersInSystem, int currentTime, double normalizedDom){
         Integer totalServiced = totalPassengersInSystem - totalWaitingPassengers;
 /*
 
@@ -26,6 +26,8 @@ public class Util {
         Double averageTotalPassengers = getAverage(totalPassengersInSystem, currentTime);
         Double averageServicedPassenger = getAverage(totalServiced, currentTime);
 
+        averageResponseTime/=normalizedDom;
+        averageWaitingTime/=normalizedDom;
         System.out.println("Average Response Time = " + averageResponseTime);
         System.out.println("Average Waiting Time = " + averageWaitingTime);
         System.out.println("Average Waiting Passengers = " + averageWaitingPassengers);
