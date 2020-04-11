@@ -9,6 +9,6 @@ public class Constants {
     public enum Technique{
         INQ,
         KOUQ,
-        ISLIQ
+        ISLIP
     }
 }

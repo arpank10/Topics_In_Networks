@@ -1,5 +1,3 @@
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
-
 import java.io.FileNotFoundException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -31,8 +29,8 @@ public class PacketSwitchController {
                 technique = Constants.Technique.INQ;
             else if(techniqueString.equals(Constants.Technique.KOUQ.toString()))
                 technique = Constants.Technique.KOUQ;
-            else if(techniqueString.equals(Constants.Technique.ISLIQ.toString()))
-                technique = Constants.Technique.ISLIQ;
+            else if(techniqueString.equals(Constants.Technique.ISLIP.toString()))
+                technique = Constants.Technique.ISLIP;
             else throwErrorMessage();
 
             System.out.println("Enter maximum simulation time in seconds");
@@ -50,7 +48,7 @@ public class PacketSwitchController {
                     break;
                 case KOUQ:
                     break;
-                case ISLIQ:
+                case ISLIP:
                     break;
             }
         } catch (InputMismatchException e){
