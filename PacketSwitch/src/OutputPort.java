@@ -11,15 +11,11 @@ class OutputPort {
     }
 
     boolean isBufferFull(){
-        if(outputBuffer.size() == bufferSize)
-            return true;
-        return false;
+        return outputBuffer.size() == bufferSize;
     }
 
     boolean isBufferEmpty(){
-        if(outputBuffer.size() == 0)
-            return true;
-        return false;
+        return outputBuffer.size() == 0;
     }
 
     void addToBuffer(Packet packet){
@@ -37,4 +33,7 @@ class OutputPort {
         return outputBuffer.get(0);
     }
 
+    int getOutputBufferSize(){
+        return outputBuffer.size();
+    }
 }

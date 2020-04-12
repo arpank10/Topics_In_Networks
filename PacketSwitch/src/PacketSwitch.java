@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 class PacketSwitch {
     private int portCount = Constants.DEFAULT_PORT_COUNT;
@@ -11,16 +9,19 @@ class PacketSwitch {
     private List<OutputPort> outputPorts;
     private Util util;
     private int time;
+    private int knockout = (int)(0.6 * portCount);
     private int transmittedPacketCounts;
     private int totalPacketDelay;
+    private double totalProbability;
 
 
-    PacketSwitch(int portCount, int bufferSize, double packetGenProbability, Constants.Technique technique, Util util){
+    PacketSwitch(int portCount, int bufferSize, double packetGenProbability, int knockout, Constants.Technique technique, Util util){
         this.portCount = portCount;
         this.bufferSize = bufferSize;
         this.packetGenProbability = packetGenProbability;
         this.technique = technique;
         this.util = util;
+        this.knockout = knockout;
         initialize();
     }
 
@@ -28,6 +29,7 @@ class PacketSwitch {
         transmittedPacketCounts = 0;
         totalPacketDelay = 0;
         time = 0;
+        totalProbability = 0.0;
 
         inputPorts = new ArrayList<>();
         outputPorts = new ArrayList<>();
@@ -114,7 +116,65 @@ class PacketSwitch {
     }
 
     private void kouqScheduling() {
+        //Creating temporary list for each Output Port
+        List<List<Packet>> outputPortContention = new ArrayList<>();
+        for(int i  = 0;i<portCount;i++){
+            List<Packet> tempList = new ArrayList<>();
+            outputPortContention.add(tempList);
+        }
 
+        for(InputPort inputPort : inputPorts){
+            Packet packet = inputPort.getPacketAtIndex(0);
+            if(packet!=null){
+                OutputPort destinationPort = packet.getDestinationPort();
+                int outputPortIndex = outputPorts.indexOf(destinationPort);
+                //Adding it to that list
+                outputPortContention.get(outputPortIndex).add(packet);
+            }
+        }
+
+        int numberOfPortsWherePacketDropped = 0;
+        //For each output port if more than K packet
+        for(int i = 0;i<portCount;i++){
+            if(outputPortContention.get(i).isEmpty()) continue;
+
+            //list of packets that need to be transmitted
+            List<Packet> packetsToBeTransmitted = new ArrayList<>();
+
+            //Sort the packets according to arrival time
+            outputPortContention.get(i).sort(Comparator.comparingInt(Packet::getArrivalTime));
+
+            //First min(knockout, total packets for output port) packets are to be considered
+            int K = knockout < outputPortContention.get(i).size()? knockout : outputPortContention.get(i).size();
+            if(knockout < outputPortContention.get(i).size())
+                numberOfPortsWherePacketDropped++;
+
+            //Randomly choose K indexes if more packets than K are in contention
+            for(int j = 0;j<K;j++){
+                int randomPacketIndex = util.generatePacketIndex(outputPortContention.get(i).size());
+                packetsToBeTransmitted.add(outputPortContention.get(i).get(randomPacketIndex));
+                outputPortContention.get(i).remove(randomPacketIndex);
+            }
+
+            //Max packets that the output port buffer can accomodate
+            int maxPackets = bufferSize - outputPorts.get(i).getOutputBufferSize();
+
+            //Remove from input port's buffer and add to output port's buffer
+            int j = 0;
+            for(j = 0;j<Math.min(maxPackets, K);j++){
+                Packet p = packetsToBeTransmitted.get(j);
+                p.getSourcePort().removeFromBuffer(p);
+                p.getDestinationPort().addToBuffer(p);
+                p.setTransmissionTime(time);
+            }
+            while(j<K){
+                Packet p = packetsToBeTransmitted.get(j);
+                p.getSourcePort().removeFromBuffer(p);
+                j++;
+            }
+        }
+
+        totalProbability+= numberOfPortsWherePacketDropped/portCount;
     }
 
     private void islipScheduling() {

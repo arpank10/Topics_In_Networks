@@ -11,15 +11,11 @@ class InputPort {
     }
 
     boolean isBufferFull(){
-        if(inputBuffer.size() == bufferSize)
-            return true;
-        return false;
+        return inputBuffer.size() == bufferSize;
     }
 
     boolean isBufferEmpty(){
-        if(inputBuffer.size() == 0)
-            return true;
-        return false;
+        return inputBuffer.size() == 0;
     }
 
     void addToBuffer(Packet packet){
