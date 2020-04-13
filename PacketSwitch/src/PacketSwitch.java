@@ -178,7 +178,109 @@ class PacketSwitch {
     }
 
     private void islipScheduling() {
+        //Grant pointers and accept pointers
+        List<Integer> grantPointers = new ArrayList<>();
+        List<Integer> acceptPointers = new ArrayList<>();
 
+        //Data structure to allocate a packet to each output port
+        List<Packet> outputPortPacketAllocated = new ArrayList<>();
+        for(int i = 0;i<portCount;i++){
+            outputPortPacketAllocated.add(null);
+            grantPointers.add(0);
+            acceptPointers.add(0);
+        }
+
+        //Temporary Data structure to keep track of valid requests in each iteration.
+        List<List<Packet>> requestLists = new ArrayList<>();
+        for(InputPort inputPort: inputPorts){
+            List<Packet> tempInputBuffer = new ArrayList<>(inputPort.getInputBuffer());
+            requestLists.add(tempInputBuffer);
+        }
+
+        boolean moreIteration = true;
+        int iterationNumber = 0;
+        Set<Integer> alreadyAllocatedInputPorts = new HashSet<>();
+        Set<Integer> alreadyAllocatedOutputPorts = new HashSet<>();
+
+        //moreIteration is true if more packets can be transmitted in the same time slot.
+        //i.e if one or more output ports are idle and a packet is bound for that.
+        while(moreIteration){
+            //---------------------------------GRANT PHASE------------------------------//
+            //Each output port will choose a packet, whose INPUT PORT INDEX IS GREATER THAN OR EQUAL TO GRANT POINTER
+            //Multiple output ports can choose packets from same input port, in that case contention is resolved
+            //in the later stage
+            for(int i = 0;i<portCount;i++){
+                List<Packet> inputRequests = requestLists.get(i);
+                //If the index of the output port number is >= GRANT POINTER, allocate it
+                for(Packet p: inputRequests){
+                    //Get the index of output port for the packet
+                    //If null, then allocate
+                    //Otherwise check if currentIndex < allocatedIndex of input ports and allot
+                    int outputPortIndex = outputPorts.indexOf(p.getDestinationPort());
+                    if(outputPortPacketAllocated.get(outputPortIndex) == null){
+                        outputPortPacketAllocated.set(outputPortIndex, p);
+                    }
+                    else if(i >= grantPointers.get(outputPortIndex)){
+                        int allocatedInputIndex = inputPorts.indexOf(outputPortPacketAllocated.get(outputPortIndex).getSourcePort());
+                        if(i < allocatedInputIndex)
+                            outputPortPacketAllocated.set(outputPortIndex, p);
+                    }
+                }
+            }
+
+            //---------------------------------ACCEPT PHASE------------------------------//
+            //Each input port may have multiple outstanding requests from o/p port
+            //Choose the output port with the LEAST INDEX GREATER THAN OR EQUAL TO THE ACCEPT POINTER
+            for(int i = 0;i<portCount;i++){
+                //Get the inputPortIndex
+                //For each input port allocate the first pkt with output port index >= accept pointer
+                Packet p = outputPortPacketAllocated.get(i);
+                int inputPortIndex = inputPorts.indexOf(p.getSourcePort());
+                if(i<acceptPointers.get(inputPortIndex) || alreadyAllocatedInputPorts.contains(inputPortIndex)){
+                    outputPortPacketAllocated.set(i, null);
+                } else {
+                    alreadyAllocatedInputPorts.add(inputPortIndex);
+                    //Updating the accept pointer(only first iteration) since here we are finally allocating to a input port
+                    //a packet whose output port index is >= accept pointer
+                    if(iterationNumber == 0)
+                        acceptPointers.set(inputPortIndex, (i+1)%portCount);
+                }
+            }
+            //Updating the grant pointers(only first iteration) after all the contentions have been resolved
+            //Finding the alreadyAllocatedOutputPorts
+            for(int i = 0;i<portCount;i++){
+                Packet p = outputPortPacketAllocated.get(i);
+                if(p == null) continue;
+                int inputIndex = inputPorts.indexOf(p.getSourcePort());
+                if(iterationNumber == 0)
+                    grantPointers.set(i, (inputIndex+1)%portCount);
+                alreadyAllocatedOutputPorts.add(i);
+            }
+            //---------------------------------REQUEST PHASE------------------------------//
+            //Removing already allocated input and output port requests
+            moreIteration = false;
+            for(int i = 0;i<portCount;i++){
+                if(alreadyAllocatedInputPorts.contains(i)){
+                    requestLists.get(i).clear();
+                }
+                for(Packet p : requestLists.get(i)){
+                    int outputPortIndex = outputPorts.indexOf(p.getDestinationPort());
+                    if(alreadyAllocatedOutputPorts.contains(outputPortIndex)){
+                        requestLists.get(i).remove(p);
+                    }
+                }
+                if(requestLists.get(i).size()>0)
+                    moreIteration = true;
+            }
+            iterationNumber++;
+        }
+        //Add the allocated packets in that round to output buffer, and remove packet from input buffer.
+        for(int i = 0;i<portCount;i++){
+            Packet p = outputPortPacketAllocated.get(i);
+            if(p == null) continue;
+            p.getSourcePort().removeFromBuffer(p);
+            p.getDestinationPort().addToBuffer(p);
+        }
     }
 
     private void generateResults() {
