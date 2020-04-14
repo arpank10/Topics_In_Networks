@@ -4,20 +4,19 @@ import java.util.Scanner;
 
 //Main entry point of the program
 public class PacketSwitchController {
+    private static int switchCount = Constants.DEFAULT_PORT_COUNT;
+    private static int bufferSize = Constants.DEFAULT_BUFFER_SIZE;
+    private static double packetGenProbability = Constants.DEFAULT_PACKET_GEN_PROBABILITY;
+    private static Constants.Technique technique = Constants.DEFAULT_TECHNIQUE;
+    private static int simulationTime = Constants.DEFAULT_SIMULATION_TIME;
+    private static int knockout = Constants.DEFAULT_KNOCKOUT;
 
     //java PacketSwitchController.Java  switchportcount buffersize packetgenprob queue knockout outputfile maxtimeslots
     public static void main(String[] args) throws FileNotFoundException {
-        int switchCount = Constants.DEFAULT_PORT_COUNT;
-        int bufferSize = Constants.DEFAULT_BUFFER_SIZE;
-        double packetGenProbability = Constants.DEFAULT_PACKET_GEN_PROBABILITY;
-        Constants.Technique technique = Constants.DEFAULT_TECHNIQUE;
-        int simulationTime = Constants.DEFAULT_SIMULATION_TIME;
-        int knockout = Constants.DEFAULT_KNOCKOUT;
 
         try{
-//            terminalInput(switchCount, bufferSize, packetGenProbability, technique, simulationTime, knockout);
-            commandLineInput(args, switchCount, bufferSize, packetGenProbability, technique, simulationTime, knockout);
-
+//            terminalInput();
+            commandLineInput(args);
             System.out.println(switchCount);
             System.out.println(bufferSize);
             System.out.println(packetGenProbability);
@@ -34,8 +33,7 @@ public class PacketSwitchController {
         }
     }
 
-    private static void commandLineInput(String[] args, int switchCount, int bufferSize, double packetGenProbability,
-                                         Constants.Technique technique, int simulationTime, int knockout){
+    private static void commandLineInput(String[] args){
         switchCount = Integer.parseInt(args[0]);
         bufferSize = Integer.parseInt(args[1]);
         packetGenProbability = Double.parseDouble(args[2]);
@@ -53,8 +51,7 @@ public class PacketSwitchController {
         simulationTime = Integer.parseInt(args[6]);
     }
 
-    private static void terminalInput(int switchCount, int bufferSize, double packetGenProbability,
-                                      Constants.Technique technique, int simulationTime, int knockout){
+    private static void terminalInput(){
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter the number of input and output ports in the switch");

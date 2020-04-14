@@ -13,8 +13,10 @@ class Util {
     //Rounding probability to 2 decimal places
     boolean generatePacketWithProbability(double prob){
         prob = (double)Math.round(prob * 100d) / 100d;
+        System.out.println(prob);
         int rand = random.nextInt(100);
-        double val =rand/100;
+        double val = getAverage(rand, 100);
+        System.out.println(val);
         return val <= prob;
     }
 

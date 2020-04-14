@@ -59,16 +59,16 @@ class PacketSwitch {
                     inputPort.addToBuffer(packet);
                 }
             }
-            System.out.println("-----------------------------GENERATION-----------------------");
-            printStatus();
+//            System.out.println("-----------------------------GENERATION-----------------------");
+//            printStatus();
             //Phase 2: Corresponds to packet scheduling.
             switch (technique){
                 case INQ:inqScheduling();break;
                 case KOUQ:kouqScheduling();break;
                 case ISLIP:islipScheduling();break;
             }
-            System.out.println("-----------------------------SCHEDULING-----------------------");
-            printStatus();
+//            System.out.println("-----------------------------SCHEDULING-----------------------");
+//            printStatus();
             //Phase 3: Corresponds to packet transmission.
             //Do necessary calculations here
             for(OutputPort outputPort: outputPorts){
@@ -81,8 +81,8 @@ class PacketSwitch {
 
                 outputPort.removeFromBuffer();
             }
-            System.out.println("-----------------------------TRANSMISSION-----------------------");
-            printStatus();
+//            System.out.println("-----------------------------TRANSMISSION-----------------------");
+//            printStatus();
             time++;
         }
         generateResults();
