@@ -13,26 +13,32 @@ class Util {
     //Rounding probability to 2 decimal places
     boolean generatePacketWithProbability(double prob){
         prob = (double)Math.round(prob * 100d) / 100d;
-        int rand = random.nextInt();
-        rand = rand%100;
+        int rand = random.nextInt(100);
         double val =rand/100;
-        if(val<=prob) return true;
-        return false;
+        return val <= prob;
     }
 
     //Generates an index from 0 to N-1 to get the output port
     int getOutputPortIndex(int portCount){
-        int rand = random.nextInt();
-        return rand%portCount;
+        return random.nextInt(portCount);
     }
 
     //Generates an index from 0 to k-1 to select a packet in contention
     int generatePacketIndex(int k){
-        int rand = random.nextInt();
-        return rand%k;
+        return random.nextInt(k);
     }
 
-    void printResults(){
+    void printResults(Constants.Technique technique, Double totalProbability, int totalDelay, int totalTime){
+        Double averageDelay = getAverage(totalDelay, totalTime);
+        System.out.println("Average Delay = " + averageDelay);
+        System.out.println("Total Delay = " + totalDelay);
+    }
 
+    //Calculate average
+    private Double getAverage(Integer value, Integer total){
+        Double average = new Double(value);
+        Double totalV = new Double(total);
+        average = average/totalV;
+        return average;
     }
 }

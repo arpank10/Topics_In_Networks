@@ -43,11 +43,10 @@ class PacketSwitch {
 
     //Function which simulates the switch for given time
     //Assumption given in question: Only one packet can be transmitted in a single time slot to each output port.
-    public void simulate(int simulationTime){
-        while(time <= simulationTime){
+    void simulate(int simulationTime){
+        while(time < simulationTime){
             //Phase 1: Corresponds to traffic generation.
             //Generate packets for all the input ports with given probability
-
             for(InputPort inputPort: inputPorts){
                 //Buffer already full, cannot take a packet unless one is transmitted
                 if(inputPort.isBufferFull()) continue;
@@ -60,12 +59,16 @@ class PacketSwitch {
                     inputPort.addToBuffer(packet);
                 }
             }
+            System.out.println("-----------------------------GENERATION-----------------------");
+            printStatus();
             //Phase 2: Corresponds to packet scheduling.
             switch (technique){
                 case INQ:inqScheduling();break;
                 case KOUQ:kouqScheduling();break;
                 case ISLIP:islipScheduling();break;
             }
+            System.out.println("-----------------------------SCHEDULING-----------------------");
+            printStatus();
             //Phase 3: Corresponds to packet transmission.
             //Do necessary calculations here
             for(OutputPort outputPort: outputPorts){
@@ -73,14 +76,16 @@ class PacketSwitch {
 
                 Packet packet = outputPort.getPacketAtHead();
 
-                totalPacketDelay = packet.getTransmissionTime() - packet.getArrivalTime();
+                totalPacketDelay+= packet.getTransmissionTime() - packet.getArrivalTime();
                 transmittedPacketCounts++;
 
                 outputPort.removeFromBuffer();
             }
-
+            System.out.println("-----------------------------TRANSMISSION-----------------------");
+            printStatus();
             time++;
         }
+        generateResults();
     }
 
     private void inqScheduling(){
@@ -284,7 +289,28 @@ class PacketSwitch {
     }
 
     private void generateResults() {
+        util.printResults(technique, totalProbability, totalPacketDelay,  time);
+    }
 
+    private void printStatus(){
+        int i = 1;
+        for(InputPort inputPort: inputPorts){
+            System.out.println("Input Port: " + String.valueOf(i));
+            for(Packet p : inputPort.getInputBuffer()){
+                System.out.print(outputPorts.indexOf(p.getDestinationPort()) + " ");
+            }
+            System.out.println();
+            i++;
+        }
+        i = 1;
+        for(OutputPort outputPort: outputPorts){
+            System.out.println("Output Port: " + String.valueOf(i));
+            for(Packet p : outputPort.getOutputBuffer()){
+                System.out.print(inputPorts.indexOf(p.getSourcePort()) + " ");
+            }
+            System.out.println();
+            i++;
+        }
     }
 
 }

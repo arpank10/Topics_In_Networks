@@ -36,4 +36,8 @@ class OutputPort {
     int getOutputBufferSize(){
         return outputBuffer.size();
     }
+
+    List<Packet> getOutputBuffer(){
+        return outputBuffer;
+    }
 }
