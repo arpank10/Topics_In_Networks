@@ -59,16 +59,16 @@ class PacketSwitch {
                     inputPort.addToBuffer(packet);
                 }
             }
-//            System.out.println("-----------------------------GENERATION-----------------------");
-//            printStatus();
+            System.out.println("-----------------------------GENERATION-----------------------");
+            printStatus();
             //Phase 2: Corresponds to packet scheduling.
             switch (technique){
                 case INQ:inqScheduling();break;
                 case KOUQ:kouqScheduling();break;
                 case ISLIP:islipScheduling();break;
             }
-//            System.out.println("-----------------------------SCHEDULING-----------------------");
-//            printStatus();
+            System.out.println("-----------------------------SCHEDULING-----------------------");
+            printStatus();
             //Phase 3: Corresponds to packet transmission.
             //Do necessary calculations here
             for(OutputPort outputPort: outputPorts){
@@ -76,13 +76,13 @@ class PacketSwitch {
 
                 Packet packet = outputPort.getPacketAtHead();
 
-                totalPacketDelay+= packet.getTransmissionTime() - packet.getArrivalTime();
+                totalPacketDelay+= time - packet.getArrivalTime();
                 transmittedPacketCounts++;
 
                 outputPort.removeFromBuffer();
             }
-//            System.out.println("-----------------------------TRANSMISSION-----------------------");
-//            printStatus();
+            System.out.println("-----------------------------TRANSMISSION-----------------------");
+            printStatus();
             time++;
         }
         generateResults();
@@ -115,8 +115,6 @@ class PacketSwitch {
             //Remove from input port's buffer and add to output port's buffer
             packetSelected.getSourcePort().removeFromBuffer(packetSelected);
             packetSelected.getDestinationPort().addToBuffer(packetSelected);
-            //Set transmission time
-            packetSelected.setTransmissionTime(time);
         }
     }
 
@@ -170,7 +168,6 @@ class PacketSwitch {
                 Packet p = packetsToBeTransmitted.get(j);
                 p.getSourcePort().removeFromBuffer(p);
                 p.getDestinationPort().addToBuffer(p);
-                p.setTransmissionTime(time);
             }
             while(j<K){
                 Packet p = packetsToBeTransmitted.get(j);
@@ -240,6 +237,7 @@ class PacketSwitch {
                 //Get the inputPortIndex
                 //For each input port allocate the first pkt with output port index >= accept pointer
                 Packet p = outputPortPacketAllocated.get(i);
+                if(p == null) continue;
                 int inputPortIndex = inputPorts.indexOf(p.getSourcePort());
                 if(i<acceptPointers.get(inputPortIndex) || alreadyAllocatedInputPorts.contains(inputPortIndex)){
                     outputPortPacketAllocated.set(i, null);
@@ -268,10 +266,13 @@ class PacketSwitch {
                 if(alreadyAllocatedInputPorts.contains(i)){
                     requestLists.get(i).clear();
                 }
-                for(Packet p : requestLists.get(i)){
+                Iterator<Packet> packetIterator = requestLists.get(i).iterator();
+
+                while(packetIterator.hasNext()) {
+                    Packet p = packetIterator.next();
                     int outputPortIndex = outputPorts.indexOf(p.getDestinationPort());
                     if(alreadyAllocatedOutputPorts.contains(outputPortIndex)){
-                        requestLists.get(i).remove(p);
+                        packetIterator.remove();
                     }
                 }
                 if(requestLists.get(i).size()>0)
@@ -297,7 +298,7 @@ class PacketSwitch {
         for(InputPort inputPort: inputPorts){
             System.out.println("Input Port: " + String.valueOf(i));
             for(Packet p : inputPort.getInputBuffer()){
-                System.out.print(outputPorts.indexOf(p.getDestinationPort()) + " ");
+                System.out.print(outputPorts.indexOf(p.getDestinationPort())+1 + " ");
             }
             System.out.println();
             i++;
@@ -306,7 +307,7 @@ class PacketSwitch {
         for(OutputPort outputPort: outputPorts){
             System.out.println("Output Port: " + String.valueOf(i));
             for(Packet p : outputPort.getOutputBuffer()){
-                System.out.print(inputPorts.indexOf(p.getSourcePort()) + " ");
+                System.out.print(inputPorts.indexOf(p.getSourcePort())+1 + " ");
             }
             System.out.println();
             i++;

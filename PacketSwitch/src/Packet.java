@@ -2,7 +2,6 @@ class Packet {
     private InputPort sourcePort;
     private OutputPort destinationPort;
     private int arrivalTime;
-    private int transmissionTime;
 
     Packet(InputPort inputPort, OutputPort outputPort, int arrivalTime){
         this.sourcePort = inputPort;
@@ -10,24 +9,15 @@ class Packet {
         this.arrivalTime = arrivalTime;
     }
 
-
-    public int getTransmissionTime() {
-        return transmissionTime;
-    }
-
-    public void setTransmissionTime(int transmissionTime) {
-        this.transmissionTime = transmissionTime;
-    }
-
-    public int getArrivalTime() {
+    int getArrivalTime() {
         return arrivalTime;
     }
 
-    public OutputPort getDestinationPort() {
+    OutputPort getDestinationPort() {
         return destinationPort;
     }
 
-    public InputPort getSourcePort() {
+    InputPort getSourcePort() {
         return sourcePort;
     }
 }
