@@ -10,6 +10,7 @@ public class PacketSwitchController {
     private static Constants.Technique technique = Constants.DEFAULT_TECHNIQUE;
     private static int simulationTime = Constants.DEFAULT_SIMULATION_TIME;
     private static int knockout = Constants.DEFAULT_KNOCKOUT;
+    private static String outputFilePath = "output.txt";
 
     //java PacketSwitchController.Java  switchportcount buffersize packetgenprob queue knockout outputfile maxtimeslots
     public static void main(String[] args) throws FileNotFoundException {
@@ -24,7 +25,7 @@ public class PacketSwitchController {
             System.out.println(simulationTime);
             System.out.println(knockout);
 
-            Util util = new Util();
+            Util util = new Util(outputFilePath);
             //Create a packet switch with given configuration
             PacketSwitch packetSwitch = new PacketSwitch(switchCount, bufferSize, packetGenProbability,knockout, technique, util);
             packetSwitch.simulate(simulationTime);
@@ -45,9 +46,8 @@ public class PacketSwitchController {
         else if(techniqueString.equals(Constants.Technique.ISLIP.toString()))
             technique = Constants.Technique.ISLIP;
         else throwErrorMessage();
-        bufferSize = Integer.parseInt(args[1]);
         knockout = Integer.parseInt(args[4]);
-        System.out.println(args[5]);
+        outputFilePath = args[5];
         simulationTime = Integer.parseInt(args[6]);
     }
 

@@ -10,8 +10,9 @@ class PacketSwitch {
     private Util util;
     private int time;
     private int knockout = (int)(0.6 * portCount);
-    private int transmittedPacketCounts;
-    private int totalPacketDelay;
+    private long transmittedPacketCounts;
+    private long totalPacketDelay;
+    private long totalSquarePacketDelay;
     private double totalProbability;
 
 
@@ -76,13 +77,15 @@ class PacketSwitch {
 
                 Packet packet = outputPort.getPacketAtHead();
 
-                totalPacketDelay+= time - packet.getArrivalTime();
+                int currentPacketDelay = time - packet.getArrivalTime();
+                totalPacketDelay+= currentPacketDelay;
+                totalSquarePacketDelay+= currentPacketDelay*currentPacketDelay;
                 transmittedPacketCounts++;
 
                 outputPort.removeFromBuffer();
             }
-            System.out.println("-----------------------------TRANSMISSION-----------------------");
-            printStatus();
+//            System.out.println("-----------------------------TRANSMISSION-----------------------");
+//            printStatus();
             time++;
         }
         generateResults();
@@ -201,7 +204,6 @@ class PacketSwitch {
 
         boolean moreIteration = true;
         int iterationNumber = 0;
-        Set<Integer> alreadyAllocatedInputPorts = new HashSet<>();
         Set<Integer> alreadyAllocatedOutputPorts = new HashSet<>();
 
         //moreIteration is true if more packets can be transmitted in the same time slot.
@@ -230,33 +232,34 @@ class PacketSwitch {
                 }
             }
 
+            printIteration(iterationNumber, outputPortPacketAllocated);
             //---------------------------------ACCEPT PHASE------------------------------//
             //Each input port may have multiple outstanding requests from o/p port
             //Choose the output port with the LEAST INDEX GREATER THAN OR EQUAL TO THE ACCEPT POINTER
+            Set<Integer> alreadyAllocatedInputPorts = new HashSet<>();
             for(int i = 0;i<portCount;i++){
                 //Get the inputPortIndex
                 //For each input port allocate the first pkt with output port index >= accept pointer
                 Packet p = outputPortPacketAllocated.get(i);
                 if(p == null) continue;
                 int inputPortIndex = inputPorts.indexOf(p.getSourcePort());
-                if(i<acceptPointers.get(inputPortIndex) || alreadyAllocatedInputPorts.contains(inputPortIndex)){
+                if(alreadyAllocatedInputPorts.contains(inputPortIndex)){
                     outputPortPacketAllocated.set(i, null);
                 } else {
                     alreadyAllocatedInputPorts.add(inputPortIndex);
-                    //Updating the accept pointer(only first iteration) since here we are finally allocating to a input port
-                    //a packet whose output port index is >= accept pointer
-                    if(iterationNumber == 0)
-                        acceptPointers.set(inputPortIndex, (i+1)%portCount);
                 }
             }
-            //Updating the grant pointers(only first iteration) after all the contentions have been resolved
+            printIteration(iterationNumber, outputPortPacketAllocated);
+            //Updating the grant and accept pointers(only first iteration) after all the contentions have been resolved
             //Finding the alreadyAllocatedOutputPorts
             for(int i = 0;i<portCount;i++){
                 Packet p = outputPortPacketAllocated.get(i);
                 if(p == null) continue;
                 int inputIndex = inputPorts.indexOf(p.getSourcePort());
-                if(iterationNumber == 0)
+                if(iterationNumber == 0){
                     grantPointers.set(i, (inputIndex+1)%portCount);
+                    acceptPointers.set(inputIndex, (i+1)%portCount);
+                }
                 alreadyAllocatedOutputPorts.add(i);
             }
             //---------------------------------REQUEST PHASE------------------------------//
@@ -290,9 +293,23 @@ class PacketSwitch {
     }
 
     private void generateResults() {
-        util.printResults(technique, totalProbability, totalPacketDelay,  time);
+        util.outputResults(portCount, packetGenProbability, technique, totalPacketDelay,
+                totalSquarePacketDelay, transmittedPacketCounts, time);
     }
 
+
+    private void printIteration(int iterationCount, List<Packet> outputPacket){
+        System.out.println("Iteration Number: " + iterationCount);
+        int i = 0;
+        for(Packet p : outputPacket){
+            i++;
+            System.out.print("Output Port " + i + ": ");
+            if(p==null) System.out.println();
+            else
+                System.out.println(inputPorts.indexOf(p.getSourcePort()) + 1);
+        }
+
+    }
     private void printStatus(){
         int i = 1;
         for(InputPort inputPort: inputPorts){
