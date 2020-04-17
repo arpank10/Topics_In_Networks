@@ -34,32 +34,36 @@ class Util {
 
     void outputResults(
             int portCount,
-            Double totalProbability,
+            Double packetGenProbability,
             Constants.Technique technique,
             long totalDelay,
             long totalSquareDelay,
             long totalPacketsTransmitted,
-            long totalTime) {
+            long totalTime,
+            double totalProbability) {
 
-        double averageProbability = totalProbability;
+        double averageProbability = packetGenProbability;
+        double averageDroppingProbability = totalProbability/totalTime;
         double averageDelay = getAverage(totalDelay, totalPacketsTransmitted);
         double averageSquaredDelay  = getAverage(totalSquareDelay, totalPacketsTransmitted);
         double standardDev = Math.sqrt(averageSquaredDelay - averageDelay*averageDelay);
         double linkUtil = getAverage(totalPacketsTransmitted, totalTime*portCount);
-        printResults(portCount, averageProbability, technique, averageDelay, standardDev, linkUtil);
-        printToFile(portCount, averageProbability, technique, averageDelay, standardDev, linkUtil);
+        printResults(portCount, averageProbability, technique, averageDelay, standardDev, linkUtil, averageDroppingProbability);
+        printToFile(portCount, averageProbability, technique, averageDelay, standardDev, linkUtil, averageDroppingProbability);
     }
 
     private void printResults(double portCount, double averageProbability, Constants.Technique technique,
-                                  double averageDelay, double standardDev, double linkUtil){
+                                  double averageDelay, double standardDev, double linkUtil, double averageDroppingProbability){
         System.out.println(Constants.outputFormat);
         System.out.println(String.format(Constants.outputFormatDimensions, portCount,
                 averageProbability, technique.toString(),
                 averageDelay, standardDev, linkUtil));
+        if(technique == Constants.Technique.KOUQ)
+            System.out.println("Average Dropping Probability: " + averageDroppingProbability);
     }
 
     private void printToFile(double portCount, double averageProbability, Constants.Technique technique,
-                     double averageDelay, double standardDev, double linkUtil){
+                     double averageDelay, double standardDev, double linkUtil, double averageDroppingProbability){
 
         //Check if file exists
         File file = new File(outputFilePath);
@@ -78,6 +82,8 @@ class Util {
             printWriter.println(String.format(Constants.outputFormatDimensions, portCount,
                     averageProbability, technique.toString(),
                     averageDelay, standardDev, linkUtil));
+            if(technique == Constants.Technique.KOUQ)
+                printWriter.println("Average Dropping Probability: " + averageDroppingProbability);
 
             printWriter.close();
         } catch (IOException e) {
@@ -86,7 +92,7 @@ class Util {
     }
 
     //Calculate average
-    private double getAverage(long value, long total){
+    double getAverage(long value, long total){
         double average = (double) value;
         double totalV = (double) total;
         average = average/totalV;

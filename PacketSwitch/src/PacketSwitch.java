@@ -60,16 +60,16 @@ class PacketSwitch {
                     inputPort.addToBuffer(packet);
                 }
             }
-            System.out.println("-----------------------------GENERATION-----------------------");
-            printStatus();
+//            System.out.println("-----------------------------GENERATION-----------------------");
+//            printStatus();
             //Phase 2: Corresponds to packet scheduling.
             switch (technique){
                 case INQ:inqScheduling();break;
                 case KOUQ:kouqScheduling();break;
                 case ISLIP:islipScheduling();break;
             }
-            System.out.println("-----------------------------SCHEDULING-----------------------");
-            printStatus();
+//            System.out.println("-----------------------------SCHEDULING-----------------------");
+//            printStatus();
             //Phase 3: Corresponds to packet transmission.
             //Do necessary calculations here
             for(OutputPort outputPort: outputPorts){
@@ -136,6 +136,7 @@ class PacketSwitch {
                 int outputPortIndex = outputPorts.indexOf(destinationPort);
                 //Adding it to that list
                 outputPortContention.get(outputPortIndex).add(packet);
+                inputPort.removeFromBuffer(packet);
             }
         }
 
@@ -169,17 +170,10 @@ class PacketSwitch {
             int j = 0;
             for(j = 0;j<Math.min(maxPackets, K);j++){
                 Packet p = packetsToBeTransmitted.get(j);
-                p.getSourcePort().removeFromBuffer(p);
                 p.getDestinationPort().addToBuffer(p);
             }
-            while(j<K){
-                Packet p = packetsToBeTransmitted.get(j);
-                p.getSourcePort().removeFromBuffer(p);
-                j++;
-            }
         }
-
-        totalProbability+= numberOfPortsWherePacketDropped/portCount;
+        totalProbability+= util.getAverage(numberOfPortsWherePacketDropped, portCount);
     }
 
     private void islipScheduling() {
@@ -294,7 +288,7 @@ class PacketSwitch {
 
     private void generateResults() {
         util.outputResults(portCount, packetGenProbability, technique, totalPacketDelay,
-                totalSquarePacketDelay, transmittedPacketCounts, time);
+                totalSquarePacketDelay, transmittedPacketCounts, time, totalProbability);
     }
 
 
