@@ -48,6 +48,7 @@ class Util {
         double averageSquaredDelay  = getAverage(totalSquareDelay, totalPacketsTransmitted);
         double standardDev = Math.sqrt(averageSquaredDelay - averageDelay*averageDelay);
         double linkUtil = getAverage(totalPacketsTransmitted, totalTime*portCount);
+
         printResults(portCount, averageProbability, technique, averageDelay, standardDev, linkUtil, averageDroppingProbability);
         printToFile(portCount, averageProbability, technique, averageDelay, standardDev, linkUtil, averageDroppingProbability);
     }

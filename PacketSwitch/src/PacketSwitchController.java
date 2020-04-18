@@ -16,19 +16,17 @@ public class PacketSwitchController {
     public static void main(String[] args) throws FileNotFoundException {
 
         try{
-//            terminalInput();
+            //terminalInput();
+            long startingTime = System.currentTimeMillis();
             commandLineInput(args);
-            System.out.println(switchCount);
-            System.out.println(bufferSize);
-            System.out.println(packetGenProbability);
-            System.out.println(technique);
-            System.out.println(simulationTime);
-            System.out.println(knockout);
 
             Util util = new Util(outputFilePath);
             //Create a packet switch with given configuration
             PacketSwitch packetSwitch = new PacketSwitch(switchCount, bufferSize, packetGenProbability,knockout, technique, util);
             packetSwitch.simulate(simulationTime);
+
+            long elapsedTime = System.currentTimeMillis() - startingTime;
+            System.out.println("Elapsed Time in milliseconds = " + elapsedTime);
         } catch (InputMismatchException e){
             throwErrorMessage();
         }
@@ -38,7 +36,11 @@ public class PacketSwitchController {
         switchCount = Integer.parseInt(args[0]);
         bufferSize = Integer.parseInt(args[1]);
         packetGenProbability = Double.parseDouble(args[2]);
+        if(packetGenProbability>1.0 || packetGenProbability<0.0) throwErrorMessage();
+
+
         String techniqueString = args[3];
+        techniqueString = techniqueString.toUpperCase();
         if(techniqueString.equals(Constants.Technique.INQ.toString()))
             technique = Constants.Technique.INQ;
         else if(techniqueString.equals(Constants.Technique.KOUQ.toString()))
@@ -46,9 +48,12 @@ public class PacketSwitchController {
         else if(techniqueString.equals(Constants.Technique.ISLIP.toString()))
             technique = Constants.Technique.ISLIP;
         else throwErrorMessage();
+
         knockout = Integer.parseInt(args[4]);
         outputFilePath = args[5];
         simulationTime = Integer.parseInt(args[6]);
+
+        if(simulationTime < 0 || switchCount < 1 || bufferSize < 1 || knockout < 1) throwErrorMessage();
     }
 
     private static void terminalInput(){
@@ -77,7 +82,8 @@ public class PacketSwitchController {
 
         System.out.println("Enter maximum simulation time in seconds");
         simulationTime = scanner.nextInt();
-        if (simulationTime < 0) throwErrorMessage();
+
+        if(simulationTime < 0 || switchCount < 1 || bufferSize < 1 || knockout < 1) throwErrorMessage();
     }
 
     private static void throwErrorMessage(){

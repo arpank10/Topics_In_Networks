@@ -45,31 +45,9 @@ class PacketSwitch {
     //Function which simulates the switch for given time
     //Assumption given in question: Only one packet can be transmitted in a single time slot to each output port.
     void simulate(int simulationTime){
+        //The phases are executed in reverse order, so that packet generated in one slot, is not transmitted in the same slot,
+        //it is scheduled in the next slot and transmitted in the next one.
         while(time < simulationTime){
-            //Phase 1: Corresponds to traffic generation.
-            //Generate packets for all the input ports with given probability
-            for(InputPort inputPort: inputPorts){
-                //Buffer already full, cannot take a packet unless one is transmitted
-                if(inputPort.isBufferFull()) continue;
-                boolean shouldGeneratePacket = util.generatePacketWithProbability(packetGenProbability);
-                if(shouldGeneratePacket){
-                    int outputPortIndex = util.getOutputPortIndex(portCount);
-                    //Create new packet
-                    Packet packet = new Packet(inputPort, outputPorts.get(outputPortIndex), time);
-                    //Allocate packet to input port's buffer
-                    inputPort.addToBuffer(packet);
-                }
-            }
-//            System.out.println("-----------------------------GENERATION-----------------------");
-//            printStatus();
-            //Phase 2: Corresponds to packet scheduling.
-            switch (technique){
-                case INQ:inqScheduling();break;
-                case KOUQ:kouqScheduling();break;
-                case ISLIP:islipScheduling();break;
-            }
-//            System.out.println("-----------------------------SCHEDULING-----------------------");
-//            printStatus();
             //Phase 3: Corresponds to packet transmission.
             //Do necessary calculations here
             for(OutputPort outputPort: outputPorts){
@@ -84,8 +62,28 @@ class PacketSwitch {
 
                 outputPort.removeFromBuffer();
             }
-//            System.out.println("-----------------------------TRANSMISSION-----------------------");
-//            printStatus();
+
+            //Phase 2: Corresponds to packet scheduling.
+            switch (technique){
+                case INQ:inqScheduling();break;
+                case KOUQ:kouqScheduling();break;
+                case ISLIP:islipScheduling();break;
+            }
+
+            //Phase 1: Corresponds to traffic generation.
+            //Generate packets for all the input ports with given probability
+            for(InputPort inputPort: inputPorts){
+                //Buffer already full, cannot take a packet unless one is transmitted
+                if(inputPort.isBufferFull()) continue;
+                boolean shouldGeneratePacket = util.generatePacketWithProbability(packetGenProbability);
+                if(shouldGeneratePacket){
+                    int outputPortIndex = util.getOutputPortIndex(portCount);
+                    //Create new packet
+                    Packet packet = new Packet(inputPort, outputPorts.get(outputPortIndex), time);
+                    //Allocate packet to input port's buffer
+                    inputPort.addToBuffer(packet);
+                }
+            }
             time++;
         }
         generateResults();
@@ -226,7 +224,6 @@ class PacketSwitch {
                 }
             }
 
-            printIteration(iterationNumber, outputPortPacketAllocated);
             //---------------------------------ACCEPT PHASE------------------------------//
             //Each input port may have multiple outstanding requests from o/p port
             //Choose the output port with the LEAST INDEX GREATER THAN OR EQUAL TO THE ACCEPT POINTER
@@ -243,7 +240,6 @@ class PacketSwitch {
                     alreadyAllocatedInputPorts.add(inputPortIndex);
                 }
             }
-            printIteration(iterationNumber, outputPortPacketAllocated);
             //Updating the grant and accept pointers(only first iteration) after all the contentions have been resolved
             //Finding the alreadyAllocatedOutputPorts
             for(int i = 0;i<portCount;i++){
@@ -289,40 +285,6 @@ class PacketSwitch {
     private void generateResults() {
         util.outputResults(portCount, packetGenProbability, technique, totalPacketDelay,
                 totalSquarePacketDelay, transmittedPacketCounts, time, totalProbability);
-    }
-
-
-    private void printIteration(int iterationCount, List<Packet> outputPacket){
-        System.out.println("Iteration Number: " + iterationCount);
-        int i = 0;
-        for(Packet p : outputPacket){
-            i++;
-            System.out.print("Output Port " + i + ": ");
-            if(p==null) System.out.println();
-            else
-                System.out.println(inputPorts.indexOf(p.getSourcePort()) + 1);
-        }
-
-    }
-    private void printStatus(){
-        int i = 1;
-        for(InputPort inputPort: inputPorts){
-            System.out.println("Input Port: " + String.valueOf(i));
-            for(Packet p : inputPort.getInputBuffer()){
-                System.out.print(outputPorts.indexOf(p.getDestinationPort())+1 + " ");
-            }
-            System.out.println();
-            i++;
-        }
-        i = 1;
-        for(OutputPort outputPort: outputPorts){
-            System.out.println("Output Port: " + String.valueOf(i));
-            for(Packet p : outputPort.getOutputBuffer()){
-                System.out.print(inputPorts.indexOf(p.getSourcePort())+1 + " ");
-            }
-            System.out.println();
-            i++;
-        }
     }
 
 }
