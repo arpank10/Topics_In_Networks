@@ -6,14 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="bad958bc-decd-41f6-9493-a7a1d0d88bc9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PacketSwitch/PacketSwitch$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PacketSwitch/PacketSwitch$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PacketSwitch/PacketSwitch.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PacketSwitch/PacketSwitch.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PacketSwitch/PacketSwitchController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PacketSwitch/PacketSwitchController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PacketSwitch/Util.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PacketSwitch/Util.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/output.txt" beforeDir="false" afterPath="$PROJECT_DIR$/output.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PacketSwitch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PacketSwitch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PacketSwitchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PacketSwitchController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Util.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,12 +22,39 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/PacketSwitchController.java">
+        <entry file="file://$PROJECT_DIR$/src/PacketSwitch.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-651">
-              <caret line="19" column="59" lean-forward="true" selection-start-line="19" selection-start-column="59" selection-end-line="19" selection-end-column="59" />
+            <state relative-caret-position="369">
+              <caret line="277" column="38" lean-forward="true" selection-start-line="277" selection-start-column="38" selection-end-line="277" selection-end-column="38" />
               <folding>
-                <element signature="method#throwErrorMessage#0;class#PacketSwitchController#0" />
+                <element signature="method#PacketSwitch#0;class#PacketSwitch#0" />
+                <element signature="method#initialize#0;class#PacketSwitch#0" />
+                <element signature="e#1314#1530#1" />
+                <element signature="n#!!doc;n#simulate#0;n#PacketSwitch#0" />
+                <element signature="method#simulate#0;class#PacketSwitch#0" />
+                <element signature="e#1756#1874#0" />
+                <element signature="e#1987#3699#1" />
+                <element signature="e#2001#2047#0" />
+                <element signature="e#2144#2579#1" />
+                <element signature="e#2668#2833#0" />
+                <element signature="e#2847#2892#0" />
+                <element signature="e#3019#3669#1" />
+                <element signature="e#3307#3655#1" />
+                <element signature="method#inqScheduling#0;class#PacketSwitch#0" />
+                <element signature="method#kouqScheduling#0;class#PacketSwitch#0" />
+                <element signature="e#5298#5412#1" />
+                <element signature="e#5459#5887#1" />
+                <element signature="e#5548#5877#1" />
+                <element signature="e#7407#7535#1" />
+                <element signature="e#8629#8710#0" />
+                <element signature="e#9445#9490#0" />
+                <element signature="e#10694#10718#0" />
+                <element signature="e#11472#11909#1" />
+                <element signature="e#11687#11843#1" />
+                <element signature="e#12212#12280#1" />
+                <element signature="e#12412#12722#1" />
+                <element signature="e#12632#12704#1" />
+                <element signature="method#generateResults#0;class#PacketSwitch#0" />
               </folding>
             </state>
           </provider>
@@ -58,13 +79,13 @@
         <option value="$PROJECT_DIR$/src/Packet.java" />
         <option value="$PROJECT_DIR$/src/Constants.java" />
         <option value="$PROJECT_DIR$/src/OutputPort.java" />
-        <option value="$PROJECT_DIR$/src/PacketSwitch.java" />
         <option value="$PROJECT_DIR$/src/Util.java" />
         <option value="$PROJECT_DIR$/src/PacketSwitchController.java" />
+        <option value="$PROJECT_DIR$/src/PacketSwitch.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-10" />
     <option name="y" value="-10" />
     <option name="width" value="980" />
@@ -120,7 +141,7 @@
     <configuration name="PacketSwitchController" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="PacketSwitchController" />
       <module name="PacketSwitch" />
-      <option name="PROGRAM_PARAMETERS" value="5000 4 1 INQ 4 output.txt 10000" />
+      <option name="PROGRAM_PARAMETERS" value="8 4 0.5 ISLIP 4 output.txt 10000" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -140,7 +161,8 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22684564" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -156,7 +178,7 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.23654391" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.7507082" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.3286119" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.3286119" />
@@ -229,23 +251,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/PacketSwitch.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="913">
-          <caret line="278" column="35" lean-forward="true" selection-start-line="278" selection-start-column="35" selection-end-line="278" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Util.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="692">
-          <caret line="74" column="13" lean-forward="true" selection-start-line="74" selection-start-column="13" selection-end-line="74" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -276,10 +281,57 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/PacketSwitchController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-651">
+        <state relative-caret-position="165">
           <caret line="19" column="59" lean-forward="true" selection-start-line="19" selection-start-column="59" selection-end-line="19" selection-end-column="59" />
           <folding>
             <element signature="method#throwErrorMessage#0;class#PacketSwitchController#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Util.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1088">
+          <caret line="74" column="13" lean-forward="true" selection-start-line="74" selection-start-column="13" selection-end-line="74" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PacketSwitch.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="369">
+          <caret line="277" column="38" lean-forward="true" selection-start-line="277" selection-start-column="38" selection-end-line="277" selection-end-column="38" />
+          <folding>
+            <element signature="method#PacketSwitch#0;class#PacketSwitch#0" />
+            <element signature="method#initialize#0;class#PacketSwitch#0" />
+            <element signature="e#1314#1530#1" />
+            <element signature="n#!!doc;n#simulate#0;n#PacketSwitch#0" />
+            <element signature="method#simulate#0;class#PacketSwitch#0" />
+            <element signature="e#1756#1874#0" />
+            <element signature="e#1987#3699#1" />
+            <element signature="e#2001#2047#0" />
+            <element signature="e#2144#2579#1" />
+            <element signature="e#2668#2833#0" />
+            <element signature="e#2847#2892#0" />
+            <element signature="e#3019#3669#1" />
+            <element signature="e#3307#3655#1" />
+            <element signature="method#inqScheduling#0;class#PacketSwitch#0" />
+            <element signature="method#kouqScheduling#0;class#PacketSwitch#0" />
+            <element signature="e#5298#5412#1" />
+            <element signature="e#5459#5887#1" />
+            <element signature="e#5548#5877#1" />
+            <element signature="e#7407#7535#1" />
+            <element signature="e#8629#8710#0" />
+            <element signature="e#9445#9490#0" />
+            <element signature="e#10694#10718#0" />
+            <element signature="e#11472#11909#1" />
+            <element signature="e#11687#11843#1" />
+            <element signature="e#12212#12280#1" />
+            <element signature="e#12412#12722#1" />
+            <element signature="e#12632#12704#1" />
+            <element signature="method#generateResults#0;class#PacketSwitch#0" />
           </folding>
         </state>
       </provider>

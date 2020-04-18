@@ -237,7 +237,8 @@ class PacketSwitch {
                 if(alreadyAllocatedInputPorts.contains(inputPortIndex)){
                     outputPortPacketAllocated.set(i, null);
                 } else {
-                    alreadyAllocatedInputPorts.add(inputPortIndex);
+                    if(i>=acceptPointers.get(inputPortIndex))
+                        alreadyAllocatedInputPorts.add(inputPortIndex);
                 }
             }
             //Updating the grant and accept pointers(only first iteration) after all the contentions have been resolved
