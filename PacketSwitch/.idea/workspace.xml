@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bad958bc-decd-41f6-9493-a7a1d0d88bc9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Output Files/outputVaryingN.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/output.txt" beforeDir="false" afterPath="$PROJECT_DIR$/output.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PacketSwitch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PacketSwitch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/output.txt" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -21,19 +21,17 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/PacketSwitch.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="369">
-              <caret line="277" column="38" lean-forward="true" selection-start-line="277" selection-start-column="38" selection-end-line="277" selection-end-column="38" />
+            <state relative-caret-position="12">
+              <caret line="49" selection-start-line="49" selection-end-line="49" />
               <folding>
                 <element signature="method#PacketSwitch#0;class#PacketSwitch#0" />
                 <element signature="method#initialize#0;class#PacketSwitch#0" />
                 <element signature="e#1314#1530#1" />
                 <element signature="n#!!doc;n#simulate#0;n#PacketSwitch#0" />
-                <element signature="method#simulate#0;class#PacketSwitch#0" />
                 <element signature="e#1756#1874#0" />
-                <element signature="e#1987#3699#1" />
                 <element signature="e#2001#2047#0" />
                 <element signature="e#2144#2579#1" />
                 <element signature="e#2668#2833#0" />
@@ -60,6 +58,24 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/output.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-95">
+              <caret line="9" selection-start-line="9" selection-end-line="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Output Files/outputVaryingN.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="17" column="94" selection-start-line="17" selection-start-column="94" selection-end-line="17" selection-end-column="94" />
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -82,6 +98,7 @@
         <option value="$PROJECT_DIR$/src/Util.java" />
         <option value="$PROJECT_DIR$/src/PacketSwitchController.java" />
         <option value="$PROJECT_DIR$/src/PacketSwitch.java" />
+        <option value="$PROJECT_DIR$/Output Files/outputVaryingN.txt" />
       </list>
     </option>
   </component>
@@ -110,7 +127,7 @@
             <path>
               <item name="PacketSwitch" type="b2602c69:ProjectViewProjectNode" />
               <item name="PacketSwitch" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Output Files" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -121,9 +138,16 @@
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Output Files" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Java Projects\Topics_In_Networks\PacketSwitch\Output Files" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -141,7 +165,7 @@
     <configuration name="PacketSwitchController" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="PacketSwitchController" />
       <module name="PacketSwitch" />
-      <option name="PROGRAM_PARAMETERS" value="8 4 0.5 ISLIP 4 output.txt 10000" />
+      <option name="PROGRAM_PARAMETERS" value="1024 4 1 KOUQ 4 output.txt 10000" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -164,7 +188,7 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22684564" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22684564" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -173,7 +197,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3286119" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.8796034" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3569405" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.43909347" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -200,12 +224,6 @@
           <line>49</line>
           <properties />
           <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/PacketSwitch.java</url>
-          <line>202</line>
-          <properties />
-          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -272,13 +290,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/output.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/PacketSwitchController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
@@ -301,16 +312,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/PacketSwitch.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="369">
-          <caret line="277" column="38" lean-forward="true" selection-start-line="277" selection-start-column="38" selection-end-line="277" selection-end-column="38" />
+        <state relative-caret-position="12">
+          <caret line="49" selection-start-line="49" selection-end-line="49" />
           <folding>
             <element signature="method#PacketSwitch#0;class#PacketSwitch#0" />
             <element signature="method#initialize#0;class#PacketSwitch#0" />
             <element signature="e#1314#1530#1" />
             <element signature="n#!!doc;n#simulate#0;n#PacketSwitch#0" />
-            <element signature="method#simulate#0;class#PacketSwitch#0" />
             <element signature="e#1756#1874#0" />
-            <element signature="e#1987#3699#1" />
             <element signature="e#2001#2047#0" />
             <element signature="e#2144#2579#1" />
             <element signature="e#2668#2833#0" />
@@ -333,6 +342,20 @@
             <element signature="e#12632#12704#1" />
             <element signature="method#generateResults#0;class#PacketSwitch#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/output.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-95">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Output Files/outputVaryingN.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="94" selection-start-line="17" selection-start-column="94" selection-end-line="17" selection-end-column="94" />
         </state>
       </provider>
     </entry>
