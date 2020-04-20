@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Random;
 
+//Util class which contains helper functions
 class Util {
     private Random random;
     private String outputFilePath;
@@ -32,6 +33,7 @@ class Util {
         return random.nextInt(k);
     }
 
+    //Display the result on terminal, and save the result to output file
     void outputResults(
             int portCount,
             Double packetGenProbability,

@@ -26,6 +26,8 @@ class PacketSwitch {
         initialize();
     }
 
+
+    //Initialize all variables, create input and output ports
     private void initialize(){
         transmittedPacketCounts = 0;
         totalPacketDelay = 0;
@@ -53,8 +55,10 @@ class PacketSwitch {
             for(OutputPort outputPort: outputPorts){
                 if(outputPort.isBufferEmpty()) continue;
 
+                //Get and remove packet from head of output queue which is to be transmitted
                 Packet packet = outputPort.getPacketAtHead();
 
+                //Calculate delay
                 int currentPacketDelay = time - packet.getArrivalTime();
                 totalPacketDelay+= currentPacketDelay;
                 totalSquarePacketDelay+= currentPacketDelay*currentPacketDelay;
@@ -97,6 +101,7 @@ class PacketSwitch {
             outputPortContention.add(tempList);
          }
 
+        //populate the list to get the input ports corresponding to each output port
         for(InputPort inputPort : inputPorts){
             Packet packet = inputPort.getPacketAtIndex(0);
             if(packet!=null){
@@ -283,6 +288,7 @@ class PacketSwitch {
         }
     }
 
+    //Generate the results
     private void generateResults() {
         util.outputResults(portCount, packetGenProbability, technique, totalPacketDelay,
                 totalSquarePacketDelay, transmittedPacketCounts, time, totalProbability);

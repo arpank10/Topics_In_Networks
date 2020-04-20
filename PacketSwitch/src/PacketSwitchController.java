@@ -32,6 +32,7 @@ public class PacketSwitchController {
         }
     }
 
+    //Take necessary input from command line arguments and check if they are valid
     private static void commandLineInput(String[] args){
         switchCount = Integer.parseInt(args[0]);
         bufferSize = Integer.parseInt(args[1]);
